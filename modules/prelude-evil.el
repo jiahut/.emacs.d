@@ -49,10 +49,10 @@
 (evil-mode 1)
 (global-surround-mode 1)
 
-(define-key evil-normal-state-map (kbd "C-A")
-  'evil-numbers/inc-at-pt)
-(define-key evil-normal-state-map (kbd "C-S-A")
-  'evil-numbers/dec-at-pt)
+;;(define-key evil-normal-state-map (kbd "C-A")
+  ;;'evil-numbers/inc-at-pt)
+;;(define-key evil-normal-state-map (kbd "C-S-A")
+  ;;'evil-numbers/dec-at-pt)
 
 ;;
 ;; Other useful Commands
