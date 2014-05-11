@@ -1,11 +1,34 @@
 ;;; package ---- my-custom.el
 ;;; Commentary:
 ;;; code:
-(prelude-require-packages '(evil surround monokai-theme tramp helm-company jade-mode help-fns+ coffee-mode dirtree helm-ag))
+(prelude-require-packages '(evil surround monokai-theme solarized-theme tramp helm-company jade-mode help-fns+ coffee-mode dirtree helm-ag))
 
 (require 'dirtree)
 (autoload 'dirtree "dirtree" "Add directory to tree view" t)
 ;; (disable-theme 'zenburn)
+(load-theme 'solarized-dark t)
+
+;; TODO err when load this
+;; (prelude-require-packages '(color-theme-solarized))
+;; (eval-after-load "color-theme"
+;;   '(progn
+;;      (color-theme-initialize)
+;;      (color-theme-solarized-dark)
+;;     )
+;; )
+
+;; (add-hook 'emacs-startup-hook
+;;   (lambda ()
+;;     (load-theme 'solarized-dark t)
+;; ))
+
+;; (add-hook 'after-init-hook
+;;   (lambda ()
+;;     (load-theme 'solarized-dark t))
+;; )
+
+;; END
+
 ;; (load-theme 'monokai t)
 (global-linum-mode t)
 ;;(require 'xcscope)
