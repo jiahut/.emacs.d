@@ -8,6 +8,21 @@
 ;; (disable-theme 'zenburn)
 (load-theme 'solarized-dark t)
 
+
+;; (defun print-elements-of-list (list)
+;;        "Print each element of LIST on a line of its own."
+;;        (while list
+;;          (print (car list))
+;;          (setq list (cdr list))))
+
+;; (print-elements-of-list load-path)
+
+(add-to-list 'load-path "~/.emacs.d/personal/sdcv-mode")
+(require 'sdcv-mode)
+(global-set-key (kbd "C-c C-s")'sdcv-search)
+;; fix the sdcv-mode
+(evil-declare-key 'normal sdcv-mode-map (kbd "q") 'delete-window)
+
 ;; TODO err when load this
 ;; (prelude-require-packages '(color-theme-solarized))
 ;; (eval-after-load "color-theme"
