@@ -17,9 +17,12 @@
 
 ;; (print-elements-of-list load-path)
 
+(global-set-key (kbd "C-x C-m") 'helm-M-x)
+(global-set-key (kbd "C-c C-h") 'helm-prelude)
+
 (add-to-list 'load-path "~/.emacs.d/personal/sdcv-mode")
 (require 'sdcv-mode)
-(global-set-key (kbd "C-c C-s")'sdcv-search)
+(global-set-key (kbd "C-c C-s") 'sdcv-search)
 ;; fix the sdcv-mode
 (evil-declare-key 'normal sdcv-mode-map (kbd "q") 'delete-window)
 
@@ -68,7 +71,7 @@
 ;; remote the C-c t
 (define-key prelude-mode-map (kbd "C-c t") nil)
 ;;; gloabl set
-(add-hook 'after-init-hook 'global-company-mode)
+;;; (add-hook 'after-init-hook 'global-company-mode)
 ;;; transparency
 (defun djcb-opacity-modify (&optional dec)
   "modify the transparency of the emacs frame; if DEC is t,
