@@ -3,7 +3,7 @@
 ;;; code:
 (prelude-require-packages '(evil surround monokai-theme solarized-theme tramp
                                  helm-company jade-mode help-fns+ coffee-mode
-                                 dirtree helm-ag helm-swoop))
+                                 dirtree ag helm-ag helm-swoop))
 
 
 
