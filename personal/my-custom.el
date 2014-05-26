@@ -77,7 +77,7 @@
 ;;         (next-line)))
 ;; (global-set-key (kbd "C-c /") 'comment-or-uncomment-region-or-line)
 
-(global-set-key (kbd "C-c C-g") 'helm-ag)
+(global-set-key (kbd "C-c C-g") 'projectile-ag)
 (global-set-key (kbd "C-c C-c") 'helm-company)
 (global-set-key (kbd "C-c C-t") 'dirtree-show)
 
