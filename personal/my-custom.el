@@ -1,12 +1,25 @@
 ;;; package ---- my-custom.el
 ;;; Commentary:
 ;;; code:
-(prelude-require-packages '(evil surround monokai-theme solarized-theme tramp helm-company jade-mode help-fns+ coffee-mode dirtree helm-ag))
+(prelude-require-packages '(evil surround monokai-theme solarized-theme tramp
+                                 helm-company jade-mode help-fns+ coffee-mode
+                                 dirtree helm-ag helm-swoop))
+
+
+
+;; (setq url-proxy-services
+;;    '(("http" . "http://127.0.0.1:8087")
+;;      ("https" . "http://127.0.0.1:8087"))
+
+(require 'helm-swoop)
+(global-set-key (kbd "C-c C-f") 'helm-swoop)
+
+
 
 (require 'dirtree)
 (autoload 'dirtree "dirtree" "Add directory to tree view" t)
 ;; (disable-theme 'zenburn)
-(load-theme 'solarized-dark t)
+;; (load-theme 'solarized-dark t)
 
 
 ;; (defun print-elements-of-list (list)
@@ -64,7 +77,7 @@
 ;;         (next-line)))
 ;; (global-set-key (kbd "C-c /") 'comment-or-uncomment-region-or-line)
 
-(global-set-key (kbd "C-c C-f") 'helm-ag)
+(global-set-key (kbd "C-c C-g") 'helm-ag)
 (global-set-key (kbd "C-c C-c") 'helm-company)
 (global-set-key (kbd "C-c C-t") 'dirtree-show)
 
