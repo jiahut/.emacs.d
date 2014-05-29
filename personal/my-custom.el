@@ -33,6 +33,12 @@
 (global-set-key (kbd "C-x C-m") 'helm-M-x)
 (global-set-key (kbd "C-c C-h") 'helm-prelude)
 
+(custom-set-variables '(helm-projectile-sources-list
+  '(helm-source-projectile-buffers-list
+    helm-source-projectile-recentf-list
+    helm-source-projectile-files-list)
+  "Default sources for `helm-projectile'."))
+
 (add-to-list 'load-path "~/.emacs.d/personal/sdcv-mode")
 (require 'sdcv-mode)
 (global-set-key (kbd "C-c C-s") 'sdcv-search)
