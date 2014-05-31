@@ -5,7 +5,16 @@
                                  helm-company jade-mode help-fns+ coffee-mode
                                  dirtree ag helm-ag helm-swoop))
 
-
+(require 'helm-ag)
+(defun helm-ag-with-dir (&optional basedir)
+    (interactive)
+    (let ((helm-ag-default-directory (or basedir
+                                            (read-directory-name "Search Directory: ")))
+          (header-name (format "Search at %s" helm-ag-default-directory)))
+    (helm-ag--query)
+    (helm-attrset 'search-this-file nil helm-ag-source)
+    (helm-attrset 'name header-name helm-ag-source)
+    (helm :sources (helm-ag--select-source) :buffer "*helm-ag*")))
 
 ;; (setq url-proxy-services
 ;;    '(("http" . "http://127.0.0.1:8087")
@@ -85,7 +94,7 @@
 
 ;; use C-c p A for ag search in projectile
 ;; use C-u for set search root
-(global-set-key (kbd "C-c C-g") 'helm-ag)
+(global-set-key (kbd "C-c C-g") 'helm-ag-with-dir)
 (global-set-key (kbd "C-c C-c") 'helm-company)
 (global-set-key (kbd "C-c C-t") 'dirtree-show)
 
