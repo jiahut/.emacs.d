@@ -10,6 +10,7 @@
 
 (defun helm-ag-with-dir (&optional basedir)
     (interactive)
+    (custom-set-variables '(projectile-require-project-root nil))
     (let ((helm-ag-default-directory (or basedir
                                             (read-directory-name "Search Directory: " (projectile-project-root))))
           (header-name (format "Search at %s" helm-ag-default-directory)))
