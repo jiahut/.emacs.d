@@ -6,10 +6,12 @@
                                  dirtree ag helm-ag helm-swoop))
 
 (require 'helm-ag)
+(require 'projectile)
+
 (defun helm-ag-with-dir (&optional basedir)
     (interactive)
     (let ((helm-ag-default-directory (or basedir
-                                            (read-directory-name "Search Directory: ")))
+                                            (read-directory-name "Search Directory: " (projectile-project-root))))
           (header-name (format "Search at %s" helm-ag-default-directory)))
     (helm-ag--query)
     (helm-attrset 'search-this-file nil helm-ag-source)
