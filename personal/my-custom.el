@@ -39,6 +39,7 @@
 
 ;; (print-elements-of-list load-path)
 
+(global-set-key (kbd "C-x m") 'helm-M-x)
 (global-set-key (kbd "C-x C-m") 'helm-M-x)
 (global-set-key (kbd "C-c C-h") 'helm-prelude)
 
