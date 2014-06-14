@@ -1,27 +1,56 @@
 ;;; package ---- my-custom.el
 ;;; Commentary:
 ;;; code:
+
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+
 (prelude-require-packages '(evil surround monokai-theme solarized-theme tramp
                                  helm-company jade-mode help-fns+ coffee-mode
-                                 dirtree ag helm-ag helm-swoop))
+                                 dirtree ag helm-ag helm-swoop
+                                 flymake-ruby projectile-rails rvm robe))
+(global-company-mode t)
+(push 'company-robe company-backends)
+
+
+;; switch the C-c t
+(define-key prelude-mode-map (kbd "C-c r") nil)
+(define-key prelude-mode-map (kbd "C-c C-r") 'prelude-rename-file-and-buffer)
+
+(require 'flymake-ruby)
+(require 'ruby-mode)
+(require 'projectile-rails)
+(require 'robe)
+(add-hook 'ruby-mode-hook 'flymake-ruby-load)
+(add-hook 'ruby-mode-hook 'projectile-rails-mode)
+(add-hook 'ruby-mode-hook 'robe-mode)
+(setq ruby-deep-indent-paren nil)
+(defadvice inf-ruby-console-auto (before active-rvm-for-robe activate)
+  (rvm-activate-corresponding-ruby))
+
+(define-key ruby-mode-map (kbd "C-c r r") 'inf-ruby)
+(define-key ruby-mode-map (kbd "C-c r v") 'rvm-activate-corresponding-ruby)
 
 (require 'helm-ag)
 (require 'projectile)
 
 (defun helm-ag-with-dir (&optional basedir)
-    (interactive)
-    (custom-set-variables '(projectile-require-project-root nil))
-    (let ((helm-ag-default-directory (or basedir
-                                            (read-directory-name "Search Directory: " (projectile-project-root))))
-          (header-name (format "Search at %s" helm-ag-default-directory)))
+  (interactive)
+  (custom-set-variables '(projectile-require-project-root nil))
+  (let ((helm-ag-default-directory (or basedir
+                                       (read-directory-name "Search Directory: " (projectile-project-root))))
+        (header-name (format "Search at %s" helm-ag-default-directory)))
     (helm-ag--query)
     (helm-attrset 'search-this-file nil helm-ag-source)
     (helm-attrset 'name header-name helm-ag-source)
-    (helm :sources (helm-ag--select-source) :buffer "*helm-ag*")))
+    (helm :sources (helm-ag--select-source) :buffer "*helm-ag*"))
+  )
 
 ;; (setq url-proxy-services
-;;    '(("http" . "http://127.0.0.1:8087")
-;;      ("https" . "http://127.0.0.1:8087"))
+;;    '(("http" . "http://127.0.0.1:9742")
+;;      ("https" . "http://127.0.0.1:9743"))
 
 (require 'helm-swoop)
 (global-set-key (kbd "C-c C-f") 'helm-swoop)
@@ -47,10 +76,10 @@
 (global-set-key (kbd "C-c C-h") 'helm-prelude)
 
 (custom-set-variables '(helm-projectile-sources-list
-  '(helm-source-projectile-buffers-list
-    helm-source-projectile-recentf-list
-    helm-source-projectile-files-list)
-  "Default sources for `helm-projectile'."))
+                        '(helm-source-projectile-buffers-list
+                          helm-source-projectile-recentf-list
+                          helm-source-projectile-files-list)
+                        "Default sources for `helm-projectile'."))
 
 (add-to-list 'load-path "~/.emacs.d/personal/sdcv-mode")
 (require 'sdcv-mode)
@@ -102,7 +131,7 @@
 (global-set-key (kbd "C-c C-c") 'helm-company)
 (global-set-key (kbd "C-c C-t") 'dirtree-show)
 
-;; remote the C-c t
+;; remove the C-c t
 (define-key prelude-mode-map (kbd "C-c t") nil)
 ;;; gloabl set
 ;;; (add-hook 'after-init-hook 'global-company-mode)
@@ -111,14 +140,14 @@
   "modify the transparency of the emacs frame; if DEC is t,
    decrease the transparency, otherwise increase it in 10%-steps"
   (let* ((alpha-or-nil (frame-parameter nil 'alpha)) ; nil before setting
-          (oldalpha (if alpha-or-nil alpha-or-nil 100))
-          (newalpha (if dec (- oldalpha 5) (+ oldalpha 5))))
+         (oldalpha (if alpha-or-nil alpha-or-nil 100))
+         (newalpha (if dec (- oldalpha 5) (+ oldalpha 5))))
     (when (and (>= newalpha frame-alpha-lower-limit) (<= newalpha 100))
       (modify-frame-parameters nil (list (cons 'alpha newalpha))))))
 
- ;; C-8 will increase opacity (== decrease transparency)
- ;; C-9 will decrease opacity (== increase transparency
- ;; C-0 will returns the state to normal
+;; C-8 will increase opacity (== decrease transparency)
+;; C-9 will decrease opacity (== increase transparency
+;; C-0 will returns the state to normal
 (global-set-key (kbd "C-8") '(lambda()(interactive)(djcb-opacity-modify)))
 (global-set-key (kbd "C-9") '(lambda()(interactive)(djcb-opacity-modify t)))
 (global-set-key (kbd "C-0") '(lambda()(interactive)
@@ -167,58 +196,58 @@
   (let ((modified (buffer-modified-p)))
     (insert "j")
     (let ((evt (read-event (format "Insert %c to exit insert state" ?j)
-               nil 0.5)))
+                           nil 0.5)))
       (cond
        ((null evt) (message ""))
        ((and (integerp evt) (char-equal evt ?j))
-    (delete-char -1)
-    (set-buffer-modified-p modified)
-    (push 'escape unread-command-events))
+        (delete-char -1)
+        (set-buffer-modified-p modified)
+        (push 'escape unread-command-events))
        (t (setq unread-command-events (append unread-command-events
-                          (list evt))))))))
+                                              (list evt))))))))
 
 ;; buffer burial
 ;; necessary support function for buffer burial
-    (defun crs-delete-these (delete-these from-this-list)
-      "Delete DELETE-THESE FROM-THIS-LIST."
-      (cond
-       ((car delete-these)
-        (if (member (car delete-these) from-this-list)
-            (crs-delete-these (cdr delete-these) (delete (car delete-these)
+(defun crs-delete-these (delete-these from-this-list)
+  "Delete DELETE-THESE FROM-THIS-LIST."
+  (cond
+   ((car delete-these)
+    (if (member (car delete-these) from-this-list)
+        (crs-delete-these (cdr delete-these) (delete (car delete-these)
                                                      from-this-list))
-          (crs-delete-these (cdr delete-these) from-this-list)))
-       (t from-this-list)))
-    ; this is the list of buffers I never want to see
-    (defvar crs-hated-buffers
-      '("KILL" "*Compile-Log*"))
-    ; might as well use this for both
-    (setq iswitchb-buffer-ignore (append '("^ " "*Buffer") crs-hated-buffers))
-    (defun crs-hated-buffers ()
-      "List of buffers I never want to see, converted from names to buffers."
-      (delete nil
-              (append
-               (mapcar 'get-buffer crs-hated-buffers)
-               (mapcar (lambda (this-buffer)
-                         (if (string-match "^ " (buffer-name this-buffer))
-                             this-buffer))
-                       (buffer-list)))))
-    ; I'm sick of switching buffers only to find KILL right in front of me
-    (defun crs-bury-buffer (&optional n)
-      (interactive)
-      (unless n
-        (setq n 1))
-      (let ((my-buffer-list (crs-delete-these (crs-hated-buffers)
-                                              (buffer-list (selected-frame)))))
-        (switch-to-buffer
-         (if (< n 0)
-             (nth (+ (length my-buffer-list) n)
-                  my-buffer-list)
-           (bury-buffer)
-           (nth n my-buffer-list)))))
-    (global-set-key [(control tab)] 'crs-bury-buffer)
-    (global-set-key [(control shift tab)] (lambda ()
-                                           (interactive)
-                                           (crs-bury-buffer -1)))
+      (crs-delete-these (cdr delete-these) from-this-list)))
+   (t from-this-list)))
+                                        ; this is the list of buffers I never want to see
+(defvar crs-hated-buffers
+  '("KILL" "*Compile-Log*"))
+                                        ; might as well use this for both
+(setq iswitchb-buffer-ignore (append '("^ " "*Buffer") crs-hated-buffers))
+(defun crs-hated-buffers ()
+  "List of buffers I never want to see, converted from names to buffers."
+  (delete nil
+          (append
+           (mapcar 'get-buffer crs-hated-buffers)
+           (mapcar (lambda (this-buffer)
+                     (if (string-match "^ " (buffer-name this-buffer))
+                         this-buffer))
+                   (buffer-list)))))
+                                        ; I'm sick of switching buffers only to find KILL right in front of me
+(defun crs-bury-buffer (&optional n)
+  (interactive)
+  (unless n
+    (setq n 1))
+  (let ((my-buffer-list (crs-delete-these (crs-hated-buffers)
+                                          (buffer-list (selected-frame)))))
+    (switch-to-buffer
+     (if (< n 0)
+         (nth (+ (length my-buffer-list) n)
+              my-buffer-list)
+       (bury-buffer)
+       (nth n my-buffer-list)))))
+(global-set-key [(control tab)] 'crs-bury-buffer)
+(global-set-key [(control shift tab)] (lambda ()
+                                        (interactive)
+                                        (crs-bury-buffer -1)))
 
 (provide 'my-custom)
 ;;; my-custom.el ends here
