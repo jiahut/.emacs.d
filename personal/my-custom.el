@@ -10,28 +10,15 @@
 (prelude-require-packages '(evil surround monokai-theme solarized-theme tramp
                                  helm-company jade-mode help-fns+ coffee-mode
                                  dirtree ag helm-ag helm-swoop
-                                 flymake-ruby projectile-rails rvm robe))
+                                 dash-at-point)) ;; flymake-ruby
+
 (global-company-mode t)
-(push 'company-robe company-backends)
 
-
+(define-key prelude-mode-map (kbd "C-c d") nil)
+(define-key prelude-mode-map (kbd "C-c d") 'dash-at-point)
 ;; switch the C-c t
 (define-key prelude-mode-map (kbd "C-c r") nil)
 (define-key prelude-mode-map (kbd "C-c C-r") 'prelude-rename-file-and-buffer)
-
-(require 'flymake-ruby)
-(require 'ruby-mode)
-(require 'projectile-rails)
-(require 'robe)
-(add-hook 'ruby-mode-hook 'flymake-ruby-load)
-(add-hook 'ruby-mode-hook 'projectile-rails-mode)
-(add-hook 'ruby-mode-hook 'robe-mode)
-(setq ruby-deep-indent-paren nil)
-(defadvice inf-ruby-console-auto (before active-rvm-for-robe activate)
-  (rvm-activate-corresponding-ruby))
-
-(define-key ruby-mode-map (kbd "C-c r r") 'inf-ruby)
-(define-key ruby-mode-map (kbd "C-c r v") 'rvm-activate-corresponding-ruby)
 
 (require 'helm-ag)
 (require 'projectile)
