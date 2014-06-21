@@ -14,6 +14,8 @@
 
 (global-company-mode t)
 
+;; map with the vim
+(define-key prelude-mode-map (kbd "C-w q") 'delete-window)
 (define-key prelude-mode-map (kbd "C-c d") nil)
 (define-key prelude-mode-map (kbd "C-c d") 'dash-at-point)
 ;; switch the C-c t

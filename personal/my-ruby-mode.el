@@ -79,6 +79,7 @@
 
 ;; (add-hook 'enh-ruby-mode-hook 'flymake-ruby-load)
 (add-hook 'enh-ruby-mode-hook 'projectile-rails-mode)
+(add-hook 'slim-mode-hook 'projectile-rails-mode)
 (add-hook 'enh-ruby-mode-hook 'robe-mode)
 ;; (setq ruby-deep-indent-paren nil)
 (setq enh-ruby-deep-indent-paren nil)
@@ -89,6 +90,7 @@
 
 (define-key ruby-mode-map (kbd "C-c r r") 'inf-ruby)
 (define-key ruby-mode-map (kbd "C-c r v") 'rvm-activate-corresponding-ruby)
+(define-key ruby-mode-map (kbd "C-c C-f") nil)
 
 
 (require 'smartparens-config)
