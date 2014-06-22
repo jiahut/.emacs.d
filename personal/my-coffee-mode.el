@@ -32,8 +32,9 @@
 
 ;;; Code:
 
+(prelude-require-packages '(js3-mode))
 (require 'coffee-mode)
-(require 'js)
+(require 'js3-mode)
 
 ;; (defvar coffee-mode-map
 ;;   (let ((map (make-sparse-keymap)))
@@ -45,18 +46,20 @@
 
 (define-key coffee-mode-map (kbd "C-x C-e") 'coffee-compile-buffer)
 
-(add-hook 'js-mode-hook
-          (lambda ()
+;;; avoid lambda in hook
+(defun add-q-key-for-quit-compiled()
+          (interactive)
             ;; (message (buffer-name))
             (if (equal "*coffee-compiled*" (buffer-name))
                (progn
               (message (buffer-name))
               (define-key evil-normal-state-map "q" nil)
-              (define-key js-mode-map (kbd "q") 'delete-window)
+              (define-key js3-mode-map (kbd "q") 'delete-window)
               ))
-            ))
+)
 
-;;; (remove-hook 'js-mode-hook t)
+(add-hook 'js3-mode-hook 'add-q-key-for-quit-compiled)
+;;; (remove-hook 'js3-mode-hook 'add-q-key-for-quit-compiled)
 
 (provide 'my-coffee-mode)
 ;;; my-coffee-mode.el ends here
