@@ -32,9 +32,23 @@
 
 ;;; Code:
 
-(prelude-require-packages '(js3-mode))
+(prelude-require-packages '(js3-mode flymake-easy flymake-coffee stylus-mode))
+(require 'prelude-programming)
 (require 'coffee-mode)
+
 (require 'js3-mode)
+(eval-after-load 'js3-mode
+  '(progn
+     (defun prelude-js-mode-defaults ()
+       )
+
+     (setq prelude-js-mode-hook 'prelude-js-mode-defaults)
+
+     (add-hook 'js-mode-hook (lambda () (run-hooks 'prelude-js-mode-hook)))))
+
+(require 'flymake-coffee)
+(add-hook 'coffee-mode-hook 'flymake-coffee-load)
+;; (remove-hook 'coffee-mode-hook 'flymake-coffee-load)
 
 ;; (defvar coffee-mode-map
 ;;   (let ((map (make-sparse-keymap)))
@@ -57,6 +71,9 @@
               (define-key js3-mode-map (kbd "q") 'delete-window)
               ))
 )
+
+(remove-hook 'prelude-coffee-mode-hook 'prelude-coffee-mode-defaults)
+;;; (add-hook 'prelude-coffee-mode-hook 'prelude-coffee-mode-defaults)
 
 (add-hook 'js3-mode-hook 'add-q-key-for-quit-compiled)
 ;;; (remove-hook 'js3-mode-hook 'add-q-key-for-quit-compiled)

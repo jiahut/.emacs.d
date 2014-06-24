@@ -12,6 +12,15 @@
                                  dirtree ag helm-ag helm-swoop
                                  dash-at-point)) ;; flymake-ruby
 
+(add-hook 'c-mode-common-hook 'hs-minor-mode)
+(add-hook 'ruby-mode-hook 'hs-minor-mode)
+(add-hook 'java-mode-hook 'hs-minor-mode)
+(add-hook 'lisp-mode-hook 'hs-minor-mode)
+(add-hook 'coffee-mode-hook 'hs-minor-mode)
+(add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
+
+(global-set-key (kbd "C-c C-v") 'hs-toggle-hiding)
+
 (global-company-mode t)
 
 ;; map with the vim
