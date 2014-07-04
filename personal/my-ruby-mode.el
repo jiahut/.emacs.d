@@ -87,9 +87,9 @@
 (defadvice inf-ruby-console-auto (before active-rvm-for-robe activate)
   (rvm-activate-corresponding-ruby))
 
-(define-key ruby-mode-map (kbd "C-c r r") 'inf-ruby)
-(define-key ruby-mode-map (kbd "C-c r v") 'rvm-activate-corresponding-ruby)
-(define-key ruby-mode-map (kbd "C-c C-f") nil)
+(define-key enh-ruby-mode-map (kbd "C-c r r") 'inf-ruby)
+(define-key enh-ruby-mode-map (kbd "C-c r v") 'rvm-activate-corresponding-ruby)
+(define-key enh-ruby-mode-map (kbd "C-c C-f") nil)
 
 
 (require 'smartparens-config)
