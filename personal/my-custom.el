@@ -7,7 +7,7 @@
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 
-(prelude-require-packages '(evil surround monokai-theme solarized-theme tramp
+(prelude-require-packages '(evil evil-surround monokai-theme solarized-theme tramp
                                  helm-company jade-mode help-fns+ coffee-mode
                                  dirtree ag helm-ag helm-swoop
                                  dash-at-point)) ;; flymake-ruby
@@ -160,8 +160,8 @@
 (evil-set-initial-state 'ibuffer-mode 'normal)
 (evil-set-initial-state 'vkill-mode 'emacs)
 (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
-(require 'surround)
-(global-surround-mode 1)
+(require 'evil-surround)
+(global-evil-surround-mode 1)
 ;;; (setq evil-default-state 'normal)
 
 ;;; I want the keybinding X to work in Evil!
