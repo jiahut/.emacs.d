@@ -60,6 +60,10 @@
 
 (define-key coffee-mode-map (kbd "C-x C-e") 'coffee-compile-buffer)
 
+(add-hook 'coffee-mode-hook
+  (function (lambda ()
+          (setq evil-shift-width 2))))
+
 ;;; avoid lambda in hook
 (defun add-q-key-for-quit-compiled()
           (interactive)

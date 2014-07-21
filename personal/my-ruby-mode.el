@@ -124,6 +124,9 @@
      (define-key evil-normal-state-map "\M-." nil)
      (define-key evil-normal-state-map "\M-;" nil)
      ))
+(add-hook 'ruby-mode-hook
+  (function (lambda ()
+          (setq evil-shift-width enh-ruby-indent-level))))
 
 (provide 'my-ruby-mode)
 ;;; my-ruby-mode.el ends here
