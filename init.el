@@ -96,7 +96,7 @@ by Prelude.")
   (mapc 'load (directory-files prelude-personal-preload-dir 't "^[^#].*el$")))
 
 (message "Loading Prelude's core...")
-(setq prelude-flyspell nil)
+
 ;; the core stuff
 (require 'prelude-packages)
 (require 'prelude-ui)
