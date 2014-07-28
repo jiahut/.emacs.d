@@ -54,11 +54,12 @@
 (add-to-list 'load-path "~/.emacs.d/personal/pyenv")
 
 (require 'pyenv)
-(setq pyenv-executable "/usr/local/bin/pyenv")
-(global-pyenv-mode)
 (if (eq system-type 'darwin)
-    (pyenv-use "py34")
-  )
+    (progn
+      (setq pyenv-executable "/usr/local/bin/pyenv")
+      (global-pyenv-mode)
+      (pyenv-use "py34")
+    ))
 
 (require 'pymacs)
 ;; Initialize Pymacs
