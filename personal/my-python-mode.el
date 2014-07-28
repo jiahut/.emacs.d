@@ -33,10 +33,58 @@
 
 (require 'prelude-programming)
 
+(prelude-require-packages '(python pymacs))
 (add-hook 'python-mode-hook
-  (function (lambda ()
-          (setq evil-shift-width python-indent))))
+          (function (lambda ()
+                      (setq evil-shift-width python-indent))))
 
+(require 'python)
+(setq
+ python-shell-interpreter "ipython"
+ python-shell-interpreter-args ""
+ python-shell-prompt-regexp "In \\[[0-9]+\\]: "
+ python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
+ python-shell-completion-setup-code
+ "from IPython.core.completerlib import module_completion"
+ python-shell-completion-module-string-code
+ "';'.join(module_completion('''%s'''))\n"
+ python-shell-completion-string-code
+ "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
+
+(add-to-list 'load-path "~/.emacs.d/personal/pyenv")
+
+(require 'pyenv)
+(setq pyenv-executable "/usr/local/bin/pyenv")
+(global-pyenv-mode)
+(if (eq system-type 'darwin)
+    (pyenv-use "py34")
+  )
+
+(require 'pymacs)
+;; Initialize Pymacs
+(autoload 'pymacs-apply "pymacs")
+(autoload 'pymacs-call "pymacs")
+(autoload 'pymacs-eval "pymacs" nil t)
+(autoload 'pymacs-exec "pymacs" nil t)
+(autoload 'pymacs-load "pymacs" nil t)
+;; Initialize Rope
+;; (pymacs-load "ropemacs" "rope-")
+(setq ropemacs-enable-autoimport t)
+(setq py-load-pymacs-p nil)
+
+(add-hook 'python-mode-hook
+          (lambda()
+            (global-set-key (kbd "RET") 'newline-and-indent)
+            (auto-fill-mode 1)
+            ))
+
+
+(require 'company)
+(defun load-repemacs()
+  (interactive)
+  (pymacs-load "ropemacs" "rope-")
+  (push 'company-ropemacs company-backends)
+  )
 
 (provide 'my-python-mode)
 ;;; my-python-mode.el ends here
