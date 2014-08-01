@@ -58,20 +58,9 @@
     (progn
       (setq pyenv-executable "/usr/local/bin/pyenv")
       (global-pyenv-mode)
-      (pyenv-use "py34")
-    ))
+      (pyenv-use "py27")
+      ))
 
-(require 'pymacs)
-;; Initialize Pymacs
-(autoload 'pymacs-apply "pymacs")
-(autoload 'pymacs-call "pymacs")
-(autoload 'pymacs-eval "pymacs" nil t)
-(autoload 'pymacs-exec "pymacs" nil t)
-(autoload 'pymacs-load "pymacs" nil t)
-;; Initialize Rope
-;; (pymacs-load "ropemacs" "rope-")
-(setq ropemacs-enable-autoimport t)
-(setq py-load-pymacs-p nil)
 
 (add-hook 'python-mode-hook
           (lambda()
@@ -81,10 +70,34 @@
 
 
 (require 'company)
-(defun load-repemacs()
+(defun load-ropemacs()
   (interactive)
+  (require 'pymacs)
+
+  (add-hook 'python-mode-hook
+            (lambda()
+              (define-key prelude-mode-map (kbd "C-c g") nil)
+              (define-key prelude-mode-map (kbd "C-c d") nil)
+              ))
+  ;; Initialize Pymacs
+  (autoload 'pymacs-apply "pymacs")
+  (autoload 'pymacs-call "pymacs")
+  (autoload 'pymacs-eval "pymacs" nil t)
+  (autoload 'pymacs-exec "pymacs" nil t)
+  (autoload 'pymacs-load "pymacs" nil t)
+  (setq ropemacs-global-prefix "C-x y")
+  (setq ropemacs-enable-autoimport t)
+  ;;  (setq py-load-pymacs-p nil)
+  ;; Initialize Rope
   (pymacs-load "ropemacs" "rope-")
+  (setq ropemacs-confirm-saving 'nil)
   (push 'company-ropemacs company-backends)
+
+  ;; fix the ropemacs
+  (defun rope-before-save-actions())
+  (defun rope-after-save-actions())
+  (defun rope-exiting-actinos())
+
   )
 
 (provide 'my-python-mode)
