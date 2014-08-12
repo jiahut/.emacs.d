@@ -3,14 +3,14 @@
 ;;; code:
 
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 
 (prelude-require-packages '(evil evil-surround monokai-theme solarized-theme tramp
                                  helm-company jade-mode help-fns+ coffee-mode
                                  dirtree ag helm-ag helm-swoop
-                                 dash-at-point)) ;; flymake-ruby
+                                 dash-at-point grandshell-theme)) ;; flymake-ruby
 
 (add-hook 'c-mode-common-hook 'hs-minor-mode)
 (add-hook 'ruby-mode-hook 'hs-minor-mode)
@@ -29,7 +29,7 @@
 (define-key prelude-mode-map (kbd "C-c d") 'dash-at-point)
 ;; switch the C-c t
 (define-key prelude-mode-map (kbd "C-c r") nil)
-(define-key prelude-mode-map (kbd "C-c C-r") 'prelude-rename-file-and-buffer)
+(define-key prelude-mode-map (kbd "C-c C-r") 'prelude-rename-buffer-and-file)
 
 (require 'helm-ag)
 (require 'projectile)
@@ -57,7 +57,13 @@
 
 (require 'dirtree)
 (autoload 'dirtree "dirtree" "Add directory to tree view" t)
-;; (disable-theme 'zenburn)
+
+(disable-theme 'zenburn)
+
+;; (require 'monokai-theme)
+;; (enable-theme 'monokai)
+(require 'grandshell-theme)
+(enable-theme 'grandshell)
 ;; (load-theme 'solarized-dark t)
 
 
@@ -79,11 +85,29 @@
                           helm-source-projectile-files-list)
                         "Default sources for `helm-projectile'."))
 
-(add-to-list 'load-path "~/.emacs.d/personal/sdcv-mode")
-(require 'sdcv-mode)
-(global-set-key (kbd "C-c C-s") 'sdcv-search)
+;; (add-to-list 'load-path "~/.emacs.d/personal/sdcv-mode")
+;; (require 'sdcv-mode)
+(global-set-key (kbd "C-c C-s") 'kid-star-dict)
+;; https://github.com/alexott/emacs-configs/blob/master/rc/emacs-rc-sdcv.el
+(defun kid-star-dict ()
+  (interactive)
+  (let ((begin (point-min))
+        (end (point-max)))
+    (if mark-active
+        (setq begin (region-beginning)
+              end (region-end))
+      (save-excursion
+        (backward-word)
+        (mark-word)
+        (setq begin (region-beginning)
+              end (region-end))))
+    (message "searching for %s ..." (buffer-substring begin end))
+    (tooltip-show (shell-command-to-string
+                   (concat "sdcv -n --utf8-output --utf8-input "
+                           (buffer-substring begin end))))))
+
 ;; fix the sdcv-mode
-(evil-declare-key 'normal sdcv-mode-map (kbd "q") 'delete-window)
+;; (evil-declare-key 'normal sdcv-mode-map (kbd "q") 'delete-window)
 
 ;; TODO err when load this
 ;; (prelude-require-packages '(color-theme-solarized))
@@ -186,6 +210,18 @@
 (evil-declare-key 'motion occur-mode-map (kbd "<return>") 'occur-mode-goto-occurrence)
 (evil-declare-key 'motion occur-mode-map (kbd "RET") 'occur-mode-goto-occurrence)
 
+(evil-declare-key 'emacs magit-log-mode-map (kbd "\C-d") 'evil-scroll-down)
+(evil-declare-key 'emacs magit-log-mode-map (kbd "\C-u") 'evil-scroll-up)
+
+(evil-declare-key 'emacs magit-commit-mode-map (kbd "\C-d") 'evil-scroll-down)
+(evil-declare-key 'emacs magit-commit-mode-map (kbd "\C-u") 'evil-scroll-up)
+
+(evil-declare-key 'emacs magit-branch-manager-mode-map (kbd "\C-d") 'evil-scroll-down)
+(evil-declare-key 'emacs magit-branch-manager-mode-map (kbd "\C-u") 'evil-scroll-up)
+
+(evil-declare-key 'emacs magit-status-mode-map (kbd "\C-d") 'evil-scroll-down)
+(evil-declare-key 'emacs magit-status-mode-map (kbd "\C-u") 'evil-scroll-up)
+
 ;; @see http://stackoverflow.com/questions/10569165/how-to-map-jj-to-esc-in-emacs-evil-mode
 ;; @see http://zuttobenkyou.wordpress.com/2011/02/15/some-thoughts-on-emacs-and-vim/
 (define-key evil-insert-state-map "j" #'cofi/maybe-exit)
@@ -227,6 +263,10 @@
           (append
            (mapcar 'get-buffer crs-hated-buffers)
            (mapcar (lambda (this-buffer)
+                     (if (string-match "^\*" (buffer-name this-buffer))
+                         this-buffer))
+                   (buffer-list))
+           (mapcar (lambda (this-buffer)
                      (if (string-match "^ " (buffer-name this-buffer))
                          this-buffer))
                    (buffer-list)))))
@@ -252,5 +292,7 @@
                                 (interactive)
                                 (crs-bury-buffer -1)))
 
+;; you can use C-h M-k for special keymap variale
+(require 'help-fns+)
 (provide 'my-custom)
 ;;; my-custom.el ends here
