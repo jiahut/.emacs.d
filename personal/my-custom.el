@@ -34,6 +34,7 @@
 (require 'helm-ag)
 (require 'projectile)
 
+(setq helm-ag-insert-at-point 'word)
 (defun helm-ag-with-dir (&optional basedir)
   (interactive)
   (custom-set-variables '(projectile-require-project-root nil))
