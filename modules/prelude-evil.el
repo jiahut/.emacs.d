@@ -38,6 +38,8 @@
 
 (prelude-require-packages '(evil goto-chg evil-surround evil-visualstar evil-numbers))
 
+(require 'evil-visualstar)
+
 (setq evil-mode-line-format 'before)
 
 (setq evil-emacs-state-cursor  '("red" box))
@@ -45,6 +47,9 @@
 (setq evil-visual-state-cursor '("gray" box))
 (setq evil-insert-state-cursor '("gray" bar))
 (setq evil-motion-state-cursor '("gray" box))
+
+;; prevent esc-key from translating to meta-key in terminal mode
+(setq evil-esc-delay 0)
 
 (evil-mode 1)
 (global-evil-surround-mode 1)
