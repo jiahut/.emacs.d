@@ -3,7 +3,8 @@
 ;;; code:
 
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+(setq package-archives nil)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 
@@ -78,7 +79,7 @@
 
 (global-set-key (kbd "C-x m") 'helm-M-x)
 (global-set-key (kbd "C-x C-m") 'helm-M-x)
-(global-set-key (kbd "C-c C-h") 'helm-prelude)
+;; (global-set-key (kbd "C-c C-h") 'helm-prelude)
 
 (custom-set-variables '(helm-projectile-sources-list
                         '(helm-source-projectile-buffers-list
@@ -155,6 +156,7 @@
 (global-set-key (kbd "C-c C-t") 'dirtree-show)
 
 ;; remove the C-c t
+;; default open terminal
 (define-key prelude-mode-map (kbd "C-c t") nil)
 ;;; gloabl set
 ;;; (add-hook 'after-init-hook 'global-company-mode)
@@ -197,9 +199,15 @@
 (define-key evil-insert-state-map "\C-e" 'end-of-line)
 (define-key evil-insert-state-map "\C-d" 'evil-delete-char)
 
+;; always mistake
+;; default set-fill-column
+;; you can type `\` then `C-x f` to set-fill-column in `emacs` status
+(define-key prelude-mode-map (kbd "\C-x f") 'helm-recentf)
+(evil-declare-key 'emacs prelude-mode-map (kbd "\C-x f") 'set-fill-column)
 
 (define-key evil-insert-state-map "\C-n" 'evil-next-line)
 (define-key evil-insert-state-map "\C-p" 'evil-previous-line)
+(define-key evil-insert-state-map "\C-k" 'kill-line)
 ;;; Evil bindings for key X shadow the default bindings in mode Y
 ;;; A common culprit here is the return key, which is ordinarily bound to evil-ret
 ;;; (a command that, as of this writing, doesn't know about what return is supposed to do in a current mode).
@@ -292,6 +300,26 @@
 (global-set-key (kbd "C-x p") (lambda ()
                                 (interactive)
                                 (crs-bury-buffer -1)))
+
+
+(when (display-graphic-p)
+  (setq fonts
+        (cond ((eq system-type 'darwin)     '("Monaco"     "STHeiti"))
+              ((eq system-type 'gnu/linux)  '("Menlo"     "WenQuanYi Zen Hei"))
+              ((eq system-type 'windows-nt) '("Consolas"  "Microsoft Yahei"))))
+
+  (setq face-font-rescale-alist '(("STHeiti" . 1.2) ("Microsoft Yahei" . 1.2) ("WenQuanYi Zen Hei" . 1.2)))
+  (set-face-attribute 'default nil :font
+                      (format "%s:pixelsize=%d" (car fonts) 15))
+  (dolist (charset '(kana han symbol cjk-misc bopomofo))
+    (set-fontset-font (frame-parameter nil 'font) charset
+                      (font-spec :family (car (cdr fonts))))))
+
+;; (set-frame-parameter nil 'font "Monaco-15")
+;; (set-face-attribute 'default nil :font "Consolas-18")
+;; (set-frame-font "Monaco 15" nil t)
+;; (set-face-attribute 'default nil :font "Monaco 15")
+;; (set-default-font "Monaco 15")
 
 ;; you can use C-h M-k for special keymap variale
 (require 'help-fns+)
