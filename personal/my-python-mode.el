@@ -33,7 +33,7 @@
 
 (require 'prelude-programming)
 
-(prelude-require-packages '(python pymacs))
+(prelude-require-packages '(python anaconda-mode))
 (add-hook 'python-mode-hook
           (function (lambda ()
                       (setq evil-shift-width python-indent))))
@@ -68,10 +68,16 @@
             (auto-fill-mode 1)
             ))
 
+;; fix the anaconda-mode
+(require 'anaconda-mode)
+(define-key anaconda-mode-map (kbd "M-.") 'anaconda-mode-goto)
+(define-key anaconda-mode-map (kbd "M-,") 'anaconda-nav-pop-marker)
 
 (require 'company)
+
 (defun load-ropemacs()
   (interactive)
+  (prelude-require-packages '(pymacs))
   (require 'pymacs)
 
   (add-hook 'python-mode-hook
