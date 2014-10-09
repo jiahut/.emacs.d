@@ -11,6 +11,7 @@
 (prelude-require-packages '(evil evil-surround monokai-theme solarized-theme tramp
                                  helm-company jade-mode help-fns+ coffee-mode
                                  dirtree ag helm-ag helm-swoop
+                                 smooth-scrolling
                                  dash-at-point grandshell-theme)) ;; flymake-ruby
 
 (add-hook 'c-mode-common-hook 'hs-minor-mode)
@@ -62,10 +63,10 @@
 
 (disable-theme 'zenburn)
 
-;; (require 'monokai-theme)
-;; (enable-theme 'monokai)
-(require 'grandshell-theme)
-(enable-theme 'grandshell)
+(require 'monokai-theme)
+(enable-theme 'monokai)
+;; (require 'grandshell-theme)
+;; (enable-theme 'grandshell)
 ;; (load-theme 'solarized-dark t)
 
 
@@ -320,6 +321,26 @@
 ;; (set-frame-font "Monaco 15" nil t)
 ;; (set-face-attribute 'default nil :font "Monaco 15")
 ;; (set-default-font "Monaco 15")
+
+;; add thrift-mode
+(add-to-list 'load-path "~/.emacs.d/personal/extra")
+(require 'thrift-mode)
+
+
+;; smooth scroll
+(require 'smooth-scrolling)
+(setq redisplay-dont-pause t
+  scroll-margin 1
+  scroll-step 1
+  scroll-conservatively 10000
+  scroll-preserve-screen-position 1)
+
+;; minimap
+;; (require 'minimap)
+;; * Use 'M-x minimap-toggle' to toggle the minimap.
+;; * Use 'M-x minimap-create' to create the minimap.
+;; * Use 'M-x minimap-kill' to kill the minimap.
+;; * Use 'M-x customize-group RET minimap RET' to adapt minimap to your needs.
 
 ;; you can use C-h M-k for special keymap variale
 (require 'help-fns+)

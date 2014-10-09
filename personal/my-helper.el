@@ -26,9 +26,9 @@ If BUFFER-OR-NAME is nil return current buffer's mode."
 
 (defun my-defind-font()
   (interactive)
-  (set-frame-font "Monaco-15")
+  ;; (set-frame-font "Monaco-15")
   ;; (set-frame-font "Consolas-18")
-  (set-face-attribute 'default nil :font "Consolas-18")
+  ;; (set-face-attribute 'default nil :font "Consolas-18")
   (set-fontset-font
     (frame-parameter nil 'font)
     'han
