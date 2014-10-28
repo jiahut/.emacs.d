@@ -11,7 +11,7 @@
 (prelude-require-packages '(evil evil-surround monokai-theme solarized-theme tramp
                                  helm-company jade-mode help-fns+ coffee-mode
                                  dirtree ag helm-ag helm-swoop
-                                 smooth-scrolling
+                                 smooth-scrolling indent-guide
                                  dash-at-point grandshell-theme)) ;; flymake-ruby
 
 (add-hook 'c-mode-common-hook 'hs-minor-mode)
@@ -342,6 +342,9 @@
 ;; * Use 'M-x minimap-kill' to kill the minimap.
 ;; * Use 'M-x customize-group RET minimap RET' to adapt minimap to your needs.
 
+;; indent-guide
+(require 'indent-guide)
+(indent-guide-global-mode)
 ;; you can use C-h M-k for special keymap variale
 (require 'help-fns+)
 (provide 'my-custom)
