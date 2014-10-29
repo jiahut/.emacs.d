@@ -53,5 +53,7 @@
 (company-emacs-eclim-setup)
 (global-company-mode t)
 
+(add-hook 'java-mode-hook (lambda ()
+                          (local-set-key (kbd "M-,") 'pop-tag-mark)))
 (provide 'my-java-mode)
 ;;; my-java-mode.el ends here
