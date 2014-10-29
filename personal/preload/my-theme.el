@@ -1,9 +1,9 @@
-;;; prelude-css.el --- Emacs Prelude: css support
+;;; my-theme.el --- Emacs Prelude: A nice setup for Ruby (and Rails) devs.
 ;;
-;; Copyright © 2011-2013 Bozhidar Batsov
+;; Copyright © 2011-2014 jiahut@gmail.com
 ;;
-;; Author: Bozhidar Batsov <bozhidar@batsov.com>
-;; URL: http://www.batsov.com/emacs-prelude
+;; Author: zhijia,.zhang <jiahut@gmail.com>
+;; URL: https://github.com/jiahut/.emacs.d
 ;; Version: 1.0.0
 ;; Keywords: convenience
 
@@ -11,7 +11,7 @@
 
 ;;; Commentary:
 
-;; Some basic configuration for css-mode.
+;; Some basic configuration for javascript development.
 
 ;;; License:
 
@@ -31,21 +31,11 @@
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Code:
+;; (prelude-require-packages '(monokai-theme solarized-theme))
 
-(eval-after-load 'css-mode
-  '(progn
-     (prelude-require-packages '(rainbow-mode))
+;; (require 'monokai-theme)
+;; (enable-theme 'monokai)
+(setq prelude-theme 'monokai)
 
-     (setq css-indent-offset 2)
-     
-     (defun prelude-css-mode-defaults ()
-       (rainbow-mode +1)
-       (run-hooks 'prelude-prog-mode-hook))
-
-     (setq prelude-css-mode-hook 'prelude-css-mode-defaults)
-
-     (add-hook 'css-mode-hook (lambda ()
-                                (run-hooks 'prelude-css-mode-hook)))))
-
-(provide 'prelude-css)
-;;; prelude-css.el ends here
+(provide 'my-theme)
+;;; my-theme.el ends here

@@ -4,11 +4,17 @@
 
 (require 'package)
 (setq package-archives nil)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+(add-to-list 'package-archives
+  '("melpa" . "http://melpa.org/packages/") t)
+(add-to-list 'package-archives
+  '("gun" . "https://elpa.gnu.org/packages/") t)
+;; (add-to-list 'package-archives
+;;   '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+;; (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+;; (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+;; (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 
-(prelude-require-packages '(evil evil-surround monokai-theme solarized-theme tramp
+(prelude-require-packages '(evil evil-surround tramp
                                  helm-company jade-mode help-fns+ coffee-mode
                                  dirtree ag helm-ag helm-swoop
                                  smooth-scrolling indent-guide
@@ -26,7 +32,7 @@
 (global-company-mode t)
 
 ;; map with the vim
-(define-key prelude-mode-map (kbd "C-w q") 'delete-window)
+;; (define-key prelude-mode-map (kbd "C-w q") 'delete-window)
 (define-key prelude-mode-map (kbd "C-c d") nil)
 (define-key prelude-mode-map (kbd "C-c d") 'dash-at-point)
 ;; switch the C-c t
@@ -61,10 +67,12 @@
 (require 'dirtree)
 (autoload 'dirtree "dirtree" "Add directory to tree view" t)
 
-(disable-theme 'zenburn)
+;; refactor to perlsonal/preload/my-theme.el
 
-(require 'monokai-theme)
-(enable-theme 'monokai)
+;; (disable-theme 'zenburn)
+
+;; (require 'monokai-theme)
+;; (enable-theme 'monokai)
 ;; (require 'grandshell-theme)
 ;; (enable-theme 'grandshell)
 ;; (load-theme 'solarized-dark t)
