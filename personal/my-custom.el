@@ -14,7 +14,7 @@
 ;; (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 ;; (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 
-(prelude-require-packages '(evil evil-surround tramp
+(prelude-require-packages '(evil evil-surround tramp thrift
                                  helm-company jade-mode help-fns+ coffee-mode
                                  dirtree ag helm-ag helm-swoop
                                  smooth-scrolling indent-guide
@@ -68,9 +68,7 @@
 (autoload 'dirtree "dirtree" "Add directory to tree view" t)
 
 ;; refactor to perlsonal/preload/my-theme.el
-
 ;; (disable-theme 'zenburn)
-
 ;; (require 'monokai-theme)
 ;; (enable-theme 'monokai)
 ;; (require 'grandshell-theme)
@@ -87,7 +85,10 @@
 ;; (print-elements-of-list load-path)
 
 (global-set-key (kbd "C-x m") 'helm-M-x)
-(global-set-key (kbd "C-x C-m") 'helm-M-x)
+
+;;; had been setting in prelue-helm-everywhere.el
+;; (global-set-key (kbd "C-x C-m") 'helm-M-x)
+
 ;; (global-set-key (kbd "C-c C-h") 'helm-prelude)
 
 (custom-set-variables '(helm-projectile-sources-list
@@ -331,8 +332,8 @@
 ;; (set-default-font "Monaco 15")
 
 ;; add thrift-mode
-(add-to-list 'load-path "~/.emacs.d/personal/extra")
-(require 'thrift-mode)
+;; (add-to-list 'load-path "~/.emacs.d/personal/extra")
+;; (require 'thrift-mode)
 
 
 ;; smooth scroll

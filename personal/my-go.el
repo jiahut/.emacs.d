@@ -32,11 +32,9 @@
 
 ;;; Code:
 
-(prelude-require-packages '(go-mode company))
-(add-to-list 'load-path "~/.emacs.d/personal/extra")
+(prelude-require-packages '(go-mode company company-go))
 
 (require 'company)
-(require 'company-go)
 (require 'go-mode)
 
 (setq company-tooltip-limit 20)
