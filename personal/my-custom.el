@@ -14,7 +14,7 @@
 ;; (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 ;; (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 
-(prelude-require-packages '(evil evil-surround tramp thrift
+(prelude-require-packages '(evil evil-surround tramp thrift powerline-evil
                                  helm-company jade-mode help-fns+ coffee-mode
                                  dirtree ag helm-ag helm-swoop
                                  smooth-scrolling indent-guide
@@ -350,6 +350,11 @@
 ;; * Use 'M-x minimap-create' to create the minimap.
 ;; * Use 'M-x minimap-kill' to kill the minimap.
 ;; * Use 'M-x customize-group RET minimap RET' to adapt minimap to your needs.
+
+;; powerline
+(require 'powerline-evil)
+;; (powerline-evil-vim-color-theme)
+(powerline-evil-center-color-theme)
 
 ;; indent-guide
 (require 'indent-guide)
