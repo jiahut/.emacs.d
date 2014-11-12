@@ -33,6 +33,7 @@
 ;;; Code:
 
 (defun my-org-toggle-checkbox()
+  "toggle checkbox"
   (interactive)
   (org-toggle-checkbox '(4))
   )
@@ -40,5 +41,13 @@
   ",c" 'my-org-toggle-checkbox
   "gk" 'outline-previous-visible-heading)
 
+
+(setq org-directory "~/Projects/plan.org")
+(define-key global-map "\C-cc" 'org-capture)
+(setq org-capture-templates
+      '(("t" "TODO" entry (file+headline (concat org-directory "/gtd.org") "Tasks")
+         "* TODO %?\n %i\n %a")
+        ("j" "Journal" entry (file+datetree (concat org-directory "/journal.org"))
+         "* %?\ncreate_at: %U\n %i\n %a")))
 (provide 'my-org)
 ;;; my-org.el ends here
