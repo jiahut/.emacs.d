@@ -14,7 +14,7 @@
 ;; (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 ;; (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 
-(prelude-require-packages '(evil evil-surround tramp thrift powerline-evil cycbuf
+(prelude-require-packages '(evil evil-surround tramp thrift powerline-evil
                                  helm-company jade-mode help-fns+ coffee-mode
                                  dirtree ag helm-ag helm-swoop
                                  smooth-scrolling indent-guide
@@ -33,7 +33,9 @@
 
 ;; map with the vim
 ;; (define-key prelude-mode-map (kbd "C-w q") 'delete-window)
-(define-key prelude-mode-map (kbd "C-c d") nil)
+
+(define-key evil-window-map "q" 'evil-window-delete)
+;; (define-key prelude-mode-map (kbd "C-c d") nil)
 (define-key prelude-mode-map (kbd "C-c d") 'dash-at-point)
 ;; switch the C-c t
 (define-key prelude-mode-map (kbd "C-c r") nil)
@@ -196,13 +198,18 @@
 (evil-set-initial-state 'dirtree-mode 'emacs)
 (evil-set-initial-state 'ibuffer-mode 'normal)
 (evil-set-initial-state 'vkill-mode 'emacs)
-(define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
+
 (require 'evil-surround)
 (global-evil-surround-mode 1)
 ;;; (setq evil-default-state 'normal)
 
 ;;; I want the keybinding X to work in Evil!
 ;;; override the \C-e
+
+;;; what's difference between motion and normal
+(define-key evil-motion-state-map "\C-u" 'evil-scroll-up)
+;; (setq-default evil-want-c-u-scroll t)
+
 ;; (define-key evil-normal-state-map "\C-r" 'isearch-backward)
 (define-key evil-normal-state-map "\C-e" 'end-of-line)
 ;; (define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
@@ -260,12 +267,12 @@
        (t (setq unread-command-events (append unread-command-events
                                               (list evt))))))))
 
-(require 'cycbuf)
-(define-key prelude-mode-map (kbd "C-x n") 'cycbuf-switch-to-next-buffer)
-(define-key prelude-mode-map (kbd "C-x p") 'cycbuf-switch-to-previous-buffer)
+;; (require 'cycbuf)
+;; (define-key prelude-mode-map (kbd "C-x n") 'cycbuf-switch-to-next-buffer)
+;; (define-key prelude-mode-map (kbd "C-x p") 'cycbuf-switch-to-previous-buffer)
 
-;; (define-key prelude-mode-map (kbd "C-x n") 'next-buffer)
-;; (define-key prelude-mode-map (kbd "C-x p") 'previous-buffer)
+(define-key prelude-mode-map (kbd "C-x n") 'next-buffer)
+(define-key prelude-mode-map (kbd "C-x p") 'previous-buffer)
 
 (when (display-graphic-p)
   (setq fonts
