@@ -27,7 +27,8 @@
 (add-hook 'coffee-mode-hook 'hs-minor-mode)
 (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
 
-(global-set-key (kbd "C-c C-v") 'hs-toggle-hiding)
+;; (global-set-key (kbd "C-c C-v") 'hs-toggle-hiding)
+(define-key prelude-mode-map (kbd "C-c v") 'hs-toggle-hiding)
 
 (global-company-mode t)
 
