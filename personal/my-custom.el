@@ -6,8 +6,8 @@
 (setq package-archives nil)
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.org/packages/") t)
-(add-to-list 'package-archives
-  '("gun" . "https://elpa.gnu.org/packages/") t)
+;; (add-to-list 'package-archives
+;;   '("gun" . "https://elpa.gnu.org/packages/") t)
 ;; (add-to-list 'package-archives
 ;;   '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 ;; (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
@@ -16,8 +16,8 @@
 
 (prelude-require-packages '(evil evil-surround tramp thrift powerline-evil
                                  helm-company jade-mode help-fns+ coffee-mode
-                                 dirtree ag helm-ag helm-swoop
-                                 smooth-scrolling indent-guide
+                                 dirtree ag helm-ag helm-swoop impatient-mode smart-mode-line
+                                 smooth-scrolling indent-guide emmet-mode yasnippet
                                  dash-at-point grandshell-theme)) ;; flymake-ruby
 
 (add-hook 'c-mode-common-hook 'hs-minor-mode)
@@ -31,6 +31,8 @@
 (define-key prelude-mode-map (kbd "C-c v") 'hs-toggle-hiding)
 
 (global-company-mode t)
+
+(yas-global-mode 1)
 
 ;; map with the vim
 ;; (define-key prelude-mode-map (kbd "C-w q") 'delete-window)
@@ -324,5 +326,9 @@
 (indent-guide-global-mode)
 ;; you can use C-h M-k for special keymap variale
 (require 'help-fns+)
+
+(require 'smart-mode-line)
+(sml/setup)
+
 (provide 'my-custom)
 ;;; my-custom.el ends here
