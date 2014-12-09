@@ -17,7 +17,7 @@
 (prelude-require-packages '(evil evil-surround tramp thrift powerline-evil
                                  helm-company jade-mode help-fns+ coffee-mode
                                  dirtree ag helm-ag helm-swoop impatient-mode smart-mode-line
-                                 smooth-scrolling indent-guide emmet-mode yasnippet
+                                 smooth-scrolling indent-guide emmet-mode yasnippet evil-leader
                                  dash-at-point grandshell-theme)) ;; flymake-ruby
 
 (add-hook 'c-mode-common-hook 'hs-minor-mode)
@@ -251,6 +251,17 @@
 (evil-declare-key 'emacs magit-status-mode-map (kbd "\C-d") 'evil-scroll-down)
 (evil-declare-key 'emacs magit-status-mode-map (kbd "\C-u") 'evil-scroll-up)
 
+
+;; unset key \ for 'evil-execute-in-emacs-state
+(define-key evil-motion-state-map "\\" nil)
+
+(require 'evil-leader)
+(global-evil-leader-mode 1)
+(evil-leader/set-key
+  "b" 'helm-mini
+  "f" 'helm-projectile
+  "p" 'helm-projectile-switch-project
+  "gs" 'magit-status)
 ;; @see http://stackoverflow.com/questions/10569165/how-to-map-jj-to-esc-in-emacs-evil-mode
 ;; @see http://zuttobenkyou.wordpress.com/2011/02/15/some-thoughts-on-emacs-and-vim/
 (define-key evil-insert-state-map "j" #'cofi/maybe-exit)
