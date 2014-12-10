@@ -97,10 +97,13 @@
 ;; (global-set-key (kbd "C-c C-h") 'helm-prelude)
 
 (custom-set-variables '(helm-projectile-sources-list
-                        '(helm-source-projectile-buffers-list
+                        '(helm-source-projectile-files-list
+                          helm-source-projectile-buffers-list
                           helm-source-projectile-recentf-list
-                          helm-source-projectile-files-list)
+                          helm-source-projectile-projects)
                         "Default sources for `helm-projectile'."))
+
+(setq projectile-switch-project-action 'helm-projectile)
 
 ;; (add-to-list 'load-path "~/.emacs.d/personal/sdcv-mode")
 ;; (require 'sdcv-mode)
@@ -261,6 +264,12 @@
   "b" 'helm-mini
   "f" 'helm-projectile
   "p" 'helm-projectile-switch-project
+  "r" 'helm-recentf
+  "a" 'helm-projectile-ag
+  "k" 'kill-this-buffer
+  "m" 'bookmark-set
+  "l" 'helm-bookmarks
+  "d" 'bookmark-delete
   "gs" 'magit-status)
 ;; @see http://stackoverflow.com/questions/10569165/how-to-map-jj-to-esc-in-emacs-evil-mode
 ;; @see http://zuttobenkyou.wordpress.com/2011/02/15/some-thoughts-on-emacs-and-vim/
