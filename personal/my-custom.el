@@ -257,6 +257,7 @@
 
 ;; unset key \ for 'evil-execute-in-emacs-state
 (define-key evil-motion-state-map "\\" nil)
+(define-key evil-motion-state-map "\\\\" 'evil-execute-in-emacs-state)
 
 (require 'evil-leader)
 (global-evil-leader-mode 1)
@@ -270,6 +271,7 @@
   "m" 'bookmark-set
   "l" 'helm-bookmarks
   "d" 'bookmark-delete
+  "w" 'save-buffer
   "gs" 'magit-status)
 ;; @see http://stackoverflow.com/questions/10569165/how-to-map-jj-to-esc-in-emacs-evil-mode
 ;; @see http://zuttobenkyou.wordpress.com/2011/02/15/some-thoughts-on-emacs-and-vim/
@@ -339,7 +341,7 @@
 ;; powerline
 (require 'powerline-evil)
 ;; (powerline-evil-vim-color-theme)
-(powerline-evil-center-color-theme)
+(add-hook 'after-init-hook (lambda ()(powerline-evil-center-color-theme)))
 
 ;; indent-guide
 (require 'indent-guide)
