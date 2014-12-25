@@ -57,11 +57,18 @@ If BUFFER-OR-NAME is nil return current buffer's mode."
   ;;(font-spec :family "Hiragino Sans GB" ))
   )
 
+(defun my-socks-proxy()
+  (interactive)
+  (setq socks-noproxy '("127.0.0.1"))
+  (setq socks-server '("Default server" "127.0.0.1" 10800 5))
+  (setq url-gateway-method 'socks))
+
 (defun my-http-proxy()
+  (interactive)
   (setq url-proxy-services
         '(("no_proxy" . "^\\(localhost\\|10.*\\)")
-          ("http" . "proxy.com:8080")
-          ("https" . "proxy.com:8080")))
+          ("http" . "121.199.35.60:8087")
+          ("https" . "121.199.35.60:8087")))
 
   (setq url-http-proxy-basic-auth-storage
         (list (list "proxy.com:8080"

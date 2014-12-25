@@ -6,8 +6,8 @@
 (setq package-archives nil)
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.org/packages/") t)
-;; (add-to-list 'package-archives
-;;   '("gun" . "https://elpa.gnu.org/packages/") t)
+(add-to-list 'package-archives
+  '("gun" . "https://elpa.gnu.org/packages/") t)
 ;; (add-to-list 'package-archives
 ;;   '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 ;; (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
@@ -27,12 +27,24 @@
 (add-hook 'coffee-mode-hook 'hs-minor-mode)
 (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
 
+;; enable osx-clipboard in terminal-emacs
+(unless (display-graphic-p)
+  (if (eq system-type 'darwin)
+      (progn
+        (prelude-require-packages '(osx-clipboard))
+        (osx-clipboard-mode t)
+        )))
+
 ;; (global-set-key (kbd "C-c C-v") 'hs-toggle-hiding)
 (define-key prelude-mode-map (kbd "C-c v") 'hs-toggle-hiding)
 
 (global-company-mode t)
 
 (yas-global-mode 1)
+
+;; emmet-mode
+(add-hook 'web-mode-hook 'emmet-mode)
+(add-hook 'css-mode-hook 'emmet-mode)
 
 ;; map with the vim
 ;; (define-key prelude-mode-map (kbd "C-w q") 'delete-window)
@@ -107,7 +119,9 @@
 
 ;; (add-to-list 'load-path "~/.emacs.d/personal/sdcv-mode")
 ;; (require 'sdcv-mode)
-(global-set-key (kbd "C-c C-s") 'kid-star-dict)
+;; (global-set-key (kbd "C-c C-s") 'kid-star-dict)
+;; use \ s  ;; update at 2014-12-15 00:45
+
 ;; https://github.com/alexott/emacs-configs/blob/master/rc/emacs-rc-sdcv.el
 (defun kid-star-dict ()
   (interactive)
@@ -207,6 +221,14 @@
 
 (require 'evil-surround)
 (global-evil-surround-mode 1)
+
+(require 'evil-leader)
+(global-evil-leader-mode 1)
+
+(add-hook 'messages-buffer-mode 'evil-leader-mode)
+(add-hook 'special-mode 'evil-leader-mode)
+(add-hook 'fundamental-mode 'evil-leader-mode)
+
 ;;; (setq evil-default-state 'normal)
 
 ;;; I want the keybinding X to work in Evil!
@@ -254,13 +276,10 @@
 (evil-declare-key 'emacs magit-status-mode-map (kbd "\C-d") 'evil-scroll-down)
 (evil-declare-key 'emacs magit-status-mode-map (kbd "\C-u") 'evil-scroll-up)
 
-
 ;; unset key \ for 'evil-execute-in-emacs-state
 (define-key evil-motion-state-map "\\" nil)
 (define-key evil-motion-state-map "\\\\" 'evil-execute-in-emacs-state)
 
-(require 'evil-leader)
-(global-evil-leader-mode 1)
 (evil-leader/set-key
   "b" 'helm-mini
   "f" 'helm-projectile
@@ -272,6 +291,7 @@
   "l" 'helm-bookmarks
   "d" 'bookmark-delete
   "w" 'save-buffer
+  "s" 'kid-star-dict
   "gs" 'magit-status)
 ;; @see http://stackoverflow.com/questions/10569165/how-to-map-jj-to-esc-in-emacs-evil-mode
 ;; @see http://zuttobenkyou.wordpress.com/2011/02/15/some-thoughts-on-emacs-and-vim/
@@ -296,8 +316,8 @@
 ;; (define-key prelude-mode-map (kbd "C-x n") 'cycbuf-switch-to-next-buffer)
 ;; (define-key prelude-mode-map (kbd "C-x p") 'cycbuf-switch-to-previous-buffer)
 
-(define-key prelude-mode-map (kbd "C-x n") 'next-buffer)
-(define-key prelude-mode-map (kbd "C-x p") 'previous-buffer)
+(define-key prelude-mode-map (kbd "M-n") 'next-buffer)
+(define-key prelude-mode-map (kbd "M-p") 'previous-buffer)
 
 (when (display-graphic-p)
   (setq fonts
@@ -321,7 +341,6 @@
 ;; add thrift-mode
 ;; (add-to-list 'load-path "~/.emacs.d/personal/extra")
 ;; (require 'thrift-mode)
-
 
 ;; smooth scroll
 (require 'smooth-scrolling)
