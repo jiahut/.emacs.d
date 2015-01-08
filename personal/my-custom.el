@@ -15,7 +15,7 @@
 ;; (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 
 (prelude-require-packages '(evil evil-surround tramp thrift powerline-evil
-                                 helm-company jade-mode help-fns+ coffee-mode
+                                 helm-company help-fns+ evil-commentary
                                  dirtree ag helm-ag helm-swoop impatient-mode smart-mode-line
                                  smooth-scrolling indent-guide emmet-mode yasnippet evil-leader
                                  dash-at-point grandshell-theme)) ;; flymake-ruby

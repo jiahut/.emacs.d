@@ -32,7 +32,7 @@
 
 ;;; Code:
 
-(prelude-require-packages '(coffee-mode js3-mode stylus-mode json-mode))
+(prelude-require-packages '(coffee-mode js3-mode jade-mode stylus-mode json-mode))
 (require 'prelude-programming)
 (require 'coffee-mode)
 
