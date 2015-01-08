@@ -32,11 +32,15 @@
 
 ;;; Code:
 
-(prelude-require-packages '(js3-mode flymake-easy flymake-coffee stylus-mode))
+(prelude-require-packages '(coffee-mode js3-mode stylus-mode json-mode))
 (require 'prelude-programming)
 (require 'coffee-mode)
 
 (require 'js3-mode)
+
+;; (require 'flymake-jshint)
+;; (add-hook 'js3-mode-hook 'flymake-jshint-load)
+
 (eval-after-load 'js3-mode
   '(progn
      (defun prelude-js-mode-defaults ()
@@ -46,8 +50,8 @@
 
      (add-hook 'js-mode-hook (lambda () (run-hooks 'prelude-js-mode-hook)))))
 
-(require 'flymake-coffee)
-(add-hook 'coffee-mode-hook 'flymake-coffee-load)
+;; (require 'flymake-coffee)
+;; (add-hook 'coffee-mode-hook 'flymake-coffee-load)
 ;; (remove-hook 'coffee-mode-hook 'flymake-coffee-load)
 
 ;; (defvar coffee-mode-map
