@@ -1,4 +1,4 @@
-### check elpa repeat
+### delete old-of-date elpa
 
-    ./ls-all-elpa.rb | ./check-repeat-elpa.rb
+    for elpa in  `./ls-out-of-date-elpa.rb`; do rm -rf  ../elpa/$elpa; done
 
