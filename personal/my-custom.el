@@ -5,9 +5,9 @@
 (require 'package)
 (setq package-archives nil)
 (add-to-list 'package-archives
-  '("melpa" . "http://melpa.org/packages/") t)
+             '("melpa" . "http://melpa.org/packages/") t)
 (add-to-list 'package-archives
-  '("gun" . "https://elpa.gnu.org/packages/") t)
+             '("gun" . "https://elpa.gnu.org/packages/") t)
 ;; (add-to-list 'package-archives
 ;;   '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 ;; (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
@@ -15,10 +15,10 @@
 ;; (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 
 (prelude-require-packages '(evil evil-surround tramp thrift powerline-evil
-                                 helm-company help-fns+ evil-commentary
+                                 helm-company help-fns+ evil-commentary helm-dash
                                  dirtree ag helm-ag helm-swoop impatient-mode smart-mode-line
                                  smooth-scrolling indent-guide emmet-mode yasnippet evil-leader
-                                 dash-at-point grandshell-theme)) ;; flymake-ruby
+                                 evil-matchit dash-at-point grandshell-theme)) ;; flymake-ruby
 
 (add-hook 'c-mode-common-hook 'hs-minor-mode)
 (add-hook 'ruby-mode-hook 'hs-minor-mode)
@@ -64,7 +64,7 @@
   (interactive)
   (custom-set-variables '(projectile-require-project-root nil))
   (let ((helm-ag-default-directory (or basedir
-                                       (read-directory-name "Search Directory: " (projectile-project-root))))
+                                       (read-directory-name "Search Directory: " (helm-ag--default-directory))))
         (header-name (format "Search at %s" helm-ag-default-directory)))
     (helm-ag--query)
     (helm-attrset 'search-this-file nil helm-ag-source)
@@ -285,14 +285,19 @@
   "f" 'helm-projectile
   "p" 'helm-projectile-switch-project
   "r" 'helm-recentf
-  "a" 'helm-projectile-ag
+  "a" 'my-helm-projectile-ag
   "k" 'kill-this-buffer
   "m" 'bookmark-set
   "l" 'helm-bookmarks
   "d" 'bookmark-delete
   "w" 'save-buffer
   "s" 'kid-star-dict
-  "gs" 'magit-status)
+  "c" 'my-create-scratch-buffer
+  "js" 'window-configuration-to-register
+  "jj" 'jump-to-register
+  "y" 'prelude-copy-file-name-to-clipboard
+  ;; "gs" 'magit-status)
+  )
 ;; @see http://stackoverflow.com/questions/10569165/how-to-map-jj-to-esc-in-emacs-evil-mode
 ;; @see http://zuttobenkyou.wordpress.com/2011/02/15/some-thoughts-on-emacs-and-vim/
 (define-key evil-insert-state-map "j" #'cofi/maybe-exit)
@@ -345,10 +350,10 @@
 ;; smooth scroll
 (require 'smooth-scrolling)
 (setq redisplay-dont-pause t
-  scroll-margin 1
-  scroll-step 1
-  scroll-conservatively 10000
-  scroll-preserve-screen-position 1)
+      scroll-margin 1
+      scroll-step 1
+      scroll-conservatively 10000
+      scroll-preserve-screen-position 1)
 
 ;; minimap
 ;; (require 'minimap)
@@ -370,6 +375,26 @@
 
 (require 'smart-mode-line)
 (sml/setup)
+
+;; (setq browse-url-browser-function 'w3m-browse-url)
+;; (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
+;; (setq w3m-use-cookies t)
+
+(require 'evil-matchit)
+(global-evil-matchit-mode 1)
+
+;; fix (evilnc-default-hotkeys)
+;; delete global-key-binding and ,ll binding
+;; https://github.com/redguardtoo/evil-nerd-commenter/issues/47
+;; (require 'evil-nerd-commenter)
+(require 'evil-commentary)
+(evil-commentary-default-setup)
+
+(require 'helm-dash)
+(setq helm-dash-browser-func 'eww-browse-url)
+;; (setq helm-dash-browser-func 'w3m-browse-url)
+
+;;; http://flycheck.readthedocs.org/en/0.17/flycheck-versus-flymake.html
 
 (provide 'my-custom)
 ;;; my-custom.el ends here

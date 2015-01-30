@@ -32,11 +32,21 @@
 
 ;;; Code:
 
-(prelude-require-packages '(coffee-mode js3-mode jade-mode stylus-mode json-mode))
+(prelude-require-packages '(coffee-mode js3-mode jade-mode stylus-mode json-mode nodejs-repl))
 (require 'prelude-programming)
 (require 'coffee-mode)
 
+(require 'nodejs-repl)
+
 (require 'js3-mode)
+(defun send-region-to-nodejs-repl(start end)
+    "Send region to `nodejs-repl' process."
+    (interactive "r")
+    (save-selected-window
+    (save-excursion (nodejs-repl)))
+    (comint-send-region (get-process nodejs-repl-process-name)
+                      start end))
+
 
 ;; (require 'flymake-jshint)
 ;; (add-hook 'js3-mode-hook 'flymake-jshint-load)
@@ -47,6 +57,8 @@
        )
 
      (setq prelude-js-mode-hook 'prelude-js-mode-defaults)
+
+     (define-key js3-mode-map (kbd "C-x C-e") 'send-region-to-nodejs-repl)
 
      (add-hook 'js-mode-hook (lambda () (run-hooks 'prelude-js-mode-hook)))))
 
@@ -65,20 +77,20 @@
 (define-key coffee-mode-map (kbd "C-x C-e") 'coffee-compile-buffer)
 
 (add-hook 'coffee-mode-hook
-  (function (lambda ()
-          (setq evil-shift-width 2))))
+          (function (lambda ()
+                      (setq evil-shift-width 2))))
 
 ;;; avoid lambda in hook
 (defun add-q-key-for-quit-compiled()
-          (interactive)
-            ;; (message (buffer-name))
-            (if (equal "*coffee-compiled*" (buffer-name))
-               (progn
-              (message (buffer-name))
-              (define-key evil-normal-state-map "q" nil)
-              (define-key js3-mode-map (kbd "q") 'delete-window)
-              ))
-)
+  (interactive)
+  ;; (message (buffer-name))
+  (if (equal "*coffee-compiled*" (buffer-name))
+      (progn
+        (message (buffer-name))
+        (define-key evil-normal-state-map "q" nil)
+        (define-key js3-mode-map (kbd "q") 'delete-window)
+        ))
+  )
 
 (remove-hook 'prelude-coffee-mode-hook 'prelude-coffee-mode-defaults)
 ;;; (add-hook 'prelude-coffee-mode-hook 'prelude-coffee-mode-defaults)

@@ -105,6 +105,31 @@ If BUFFER-OR-NAME is nil return current buffer's mode."
 ;; M-x eval-region ;; region
 ;; M-x eval-buffer ;; whole buffer
 ;; M-x load-file ~/.emacs.d/init.el
+(defun copy-file-path (&optional dirPathOnly-p)
+  "Copy the current buffer's file path or dired path to `kill-ring'.
+If `universal-argument' is called, copy only the dir path."
+  (interactive "P")
+  (let ((fPath
+         (if (equal major-mode 'dired-mode)
+             default-directory
+           (buffer-file-name)
+           )))
+    (kill-new
+     (if (equal dirPathOnly-p nil)
+         fPath
+       (file-name-directory fPath)
+       )))
+  (message "File path copied.") )
+
+(defun my-test-prefix(&optional tagName)
+  (interactive (if current-prefix-arg (list (read-string "Tag (span):" nil nil "span"))))
+  (print tagName))
+
+(defun my-helm-projectile-ag()
+  (interactive)
+  (let ((current-prefix-arg 4)) ;; emulate C-u
+    (call-interactively 'helm-projectile-ag) ;; invoke align-regexp interactively
+    ))
 
 (provide 'my-helper)
 ;;; my-helper.el ends here
