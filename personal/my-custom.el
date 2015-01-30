@@ -51,7 +51,7 @@
 
 (define-key evil-window-map "q" 'evil-window-delete)
 ;; (define-key prelude-mode-map (kbd "C-c d") nil)
-(define-key prelude-mode-map (kbd "C-c d") 'dash-at-point)
+(define-key prelude-mode-map (kbd "C-c d") 'helm-dash-at-point)
 ;; switch the C-c t
 (define-key prelude-mode-map (kbd "C-c r") nil)
 (define-key prelude-mode-map (kbd "C-c C-r") 'prelude-rename-buffer-and-file)
@@ -278,7 +278,7 @@
 
 ;; unset key \ for 'evil-execute-in-emacs-state
 (define-key evil-motion-state-map "\\" nil)
-(define-key evil-motion-state-map "\\\\" 'evil-execute-in-emacs-state)
+;; (define-key evil-motion-state-map "\\\\" 'evil-execute-in-emacs-state)
 
 (evil-leader/set-key
   "b" 'helm-mini
@@ -293,6 +293,8 @@
   "w" 'save-buffer
   "s" 'kid-star-dict
   "c" 'my-create-scratch-buffer
+  "e" 'evil-execute-in-emacs-state
+  "\\" 'er/expand-region
   "js" 'window-configuration-to-register
   "jj" 'jump-to-register
   "y" 'prelude-copy-file-name-to-clipboard
