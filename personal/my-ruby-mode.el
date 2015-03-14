@@ -31,8 +31,8 @@
 
 ;;; Code:
 
-(require 'prelude-programming)
 
+(require 'prelude-programming)
 (prelude-require-packages '(ruby-tools inf-ruby yari
                                        projectile-rails rvm robe
                                        enh-ruby-mode smartparens highlight-indentation))
