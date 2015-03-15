@@ -17,7 +17,7 @@
 (prelude-require-packages '(evil evil-surround tramp thrift powerline-evil
                                  helm-company help-fns+ evil-commentary helm-dash
                                  dirtree ag helm-ag helm-swoop impatient-mode smart-mode-line
-                                 smooth-scrolling indent-guide emmet-mode yasnippet evil-leader
+                                 smooth-scrolling indent-guide emmet-mode yasnippet evil-leader evil-exchange
                                  evil-matchit dash-at-point grandshell-theme)) ;; flymake-ruby
 
 (add-hook 'c-mode-common-hook 'hs-minor-mode)
@@ -227,6 +227,7 @@
 
 (add-hook 'messages-buffer-mode 'evil-leader-mode)
 (add-hook 'special-mode 'evil-leader-mode)
+(add-hook 'fundamental-mode 'evil-mode)
 (add-hook 'fundamental-mode 'evil-leader-mode)
 
 ;;; (setq evil-default-state 'normal)
@@ -298,6 +299,7 @@
   "js" 'window-configuration-to-register
   "jj" 'jump-to-register
   "y" 'prelude-copy-file-name-to-clipboard
+  "m" 'maximize-window
   ;; "gs" 'magit-status)
   )
 ;; @see http://stackoverflow.com/questions/10569165/how-to-map-jj-to-esc-in-emacs-evil-mode
@@ -366,8 +368,8 @@
 
 ;; powerline
 (require 'powerline-evil)
-;; (powerline-evil-vim-color-theme)
-(add-hook 'after-init-hook (lambda ()(powerline-evil-center-color-theme)))
+;; (add-hook 'after-init-hook (lambda ()(powerline-evil-center-color-theme)))
+(add-hook 'after-init-hook (lambda ()(powerline-evil-vim-color-theme)))
 
 ;; indent-guide
 (require 'indent-guide)
@@ -397,6 +399,9 @@
 ;; (setq helm-dash-browser-func 'w3m-browse-url)
 
 ;;; http://flycheck.readthedocs.org/en/0.17/flycheck-versus-flymake.html
+
+(require 'evil-exchange)
+(evil-exchange-install)
 
 (provide 'my-custom)
 ;;; my-custom.el ends here
