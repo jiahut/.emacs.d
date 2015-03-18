@@ -35,6 +35,8 @@
 (prelude-require-packages '(markdown-mode))
 (require 'markdown-mode)
 (evil-declare-key 'normal markdown-mode-map
+  (kbd "TAB") 'markdown-cycle
+  "gj" 'outline-forward-same-level
   "gk" 'outline-previous-visible-heading)
 
 

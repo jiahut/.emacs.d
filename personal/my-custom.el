@@ -403,5 +403,7 @@
 (require 'evil-exchange)
 (evil-exchange-install)
 
+;; close menu bar
+(menu-bar-mode -1)
 (provide 'my-custom)
 ;;; my-custom.el ends here

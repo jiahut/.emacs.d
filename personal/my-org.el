@@ -39,6 +39,7 @@
   )
 (evil-declare-key 'normal org-mode-map
   ",c" 'my-org-toggle-checkbox
+  "gk" 'outline-backward-same-level
   "gk" 'outline-previous-visible-heading)
 
 
