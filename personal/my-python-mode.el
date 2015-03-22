@@ -106,5 +106,6 @@
 
   )
 
+(define-key python-mode-map (kbd "C-x C-e") 'python-shell-send-region)
 (provide 'my-python-mode)
 ;;; my-python-mode.el ends here

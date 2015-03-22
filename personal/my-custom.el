@@ -243,7 +243,7 @@
 (define-key evil-normal-state-map "\C-e" 'end-of-line)
 ;; (define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
 (define-key evil-insert-state-map "\C-e" 'end-of-line)
-(define-key evil-insert-state-map "\C-d" 'evil-delete-char)
+;; (define-key evil-insert-state-map "\C-d" 'evil-delete-char)
 
 ;; always mistake
 ;; default set-fill-column
