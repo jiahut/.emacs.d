@@ -285,6 +285,7 @@ there's a region, all lines that region covers will be duplicated."
   (interactive)
   (byte-recompile-directory prelude-dir 0))
 
+(require 'ido)
 (defun prelude-sudo-edit (&optional arg)
   "Edit currently visited file as root.
 
@@ -394,6 +395,7 @@ Doesn't mess with special buffers."
     "Press <C-Backspace> to kill a line backwards."
     "Press <C-S-Backspace> or <s-k> to kill the whole line."
     "Press <s-j> or <C-^> to join lines."
+    "Press <s-.> or <C-c j> to jump to the start of a word in any visible window."
     "Press <f11> to toggle fullscreen mode."
     "Press <f12> to toggle the menu bar."
     "Explore the Tools->Prelude menu to find out about some of Prelude extensions to Emacs."
