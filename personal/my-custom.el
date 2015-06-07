@@ -18,7 +18,8 @@
                                  helm-company help-fns+ evil-commentary helm-dash
                                  dirtree ag helm-ag helm-swoop impatient-mode smart-mode-line
                                  smooth-scrolling indent-guide emmet-mode yasnippet evil-leader evil-exchange
-                                 evil-matchit dash-at-point grandshell-theme)) ;; flymake-ruby
+                                 evil-matchit dash-at-point grandshell-theme
+                                 sr-speedbar projectile-speedbar evil-snipe)) ;; flymake-ruby
 
 (add-hook 'c-mode-common-hook 'hs-minor-mode)
 (add-hook 'ruby-mode-hook 'hs-minor-mode)
@@ -402,6 +403,23 @@
 
 (require 'evil-exchange)
 (evil-exchange-install)
+
+(add-to-list 'load-path "~/.emacs.d/personal/freemind")
+(require 'ox-freemind)
+
+;; speedbar
+(require 'projectile-speedbar)
+(global-set-key (kbd "<f2>") 'projectile-speedbar-open-current-buffer-in-tree)
+
+;; vim-snipe
+(require 'evil-snipe)
+(setq evil-snipe-repeat-keys t)
+(setq evil-snipe-scope 'visible)
+(setq evil-snipe-repeat-scope 'whole-visible)
+(setq evil-snipe-enable-highlight t)
+(setq evil-snipe-enable-incremental-highlight t)
+(evil-snipe-mode 1)
+(evil-snipe-override-mode 1)
 
 ;; close menu bar
 (menu-bar-mode -1)

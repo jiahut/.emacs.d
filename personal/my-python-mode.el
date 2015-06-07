@@ -66,6 +66,7 @@
           (lambda()
             (global-set-key (kbd "RET") 'newline-and-indent)
             (auto-fill-mode 1)
+            (setq-default tab-width 4)
             ))
 
 ;; fix the anaconda-mode

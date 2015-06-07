@@ -28,4 +28,5 @@ overdue.each do  | elpa |
   # `rm -rf ../elpa/#{elpa}`
 end
 
+# usage:
 # ./ls-all-elpa.rb | xargs rm -rf 

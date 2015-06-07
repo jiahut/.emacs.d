@@ -57,12 +57,16 @@ If BUFFER-OR-NAME is nil return current buffer's mode."
   ;;(font-spec :family "Hiragino Sans GB" ))
   )
 
+(defun my-open-in-browser()
+  (interactive)
+  (let ((filename (buffer-file-name)))
+    (browse-url (concat "file://" filename))))
+
 (defun my-socks-proxy()
   (interactive)
   (setq socks-noproxy '("127.0.0.1"))
-  (setq socks-server '("Default server" "127.0.0.1" 10800 5))
+  (setq socks-server '("Default server" "127.0.0.1" 1080 5))
   (setq url-gateway-method 'socks))
-
 (defun my-http-proxy()
   (interactive)
   (setq url-proxy-services
