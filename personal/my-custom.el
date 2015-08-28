@@ -16,7 +16,7 @@
 
 (prelude-require-packages '(evil evil-surround tramp thrift powerline-evil
                                  helm-company help-fns+ evil-commentary helm-dash
-                                 dirtree ag helm-ag helm-swoop impatient-mode smart-mode-line
+                                 dirtree ag helm-ag helm-swoop impatient-mode powerline
                                  smooth-scrolling indent-guide emmet-mode yasnippet evil-leader evil-exchange
                                  evil-matchit dash-at-point grandshell-theme
                                  sr-speedbar projectile-speedbar evil-snipe)) ;; flymake-ruby
@@ -244,7 +244,8 @@
 (define-key evil-normal-state-map "\C-e" 'end-of-line)
 ;; (define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
 (define-key evil-insert-state-map "\C-e" 'end-of-line)
-;; (define-key evil-insert-state-map "\C-d" 'evil-delete-char)
+;; ctrl-d  Scroll window Downwards in the buffer default in vim-insert-mode
+(define-key evil-insert-state-map "\C-d" 'evil-delete-char)
 
 ;; always mistake
 ;; default set-fill-column
@@ -297,10 +298,11 @@
   "c" 'my-create-scratch-buffer
   "e" 'evil-execute-in-emacs-state
   "\\" 'er/expand-region
-  "js" 'window-configuration-to-register
-  "jj" 'jump-to-register
+  "g" 'window-configuration-to-register
+  "j" 'jump-to-register
   "y" 'prelude-copy-file-name-to-clipboard
-  "m" 'maximize-window
+  "n" 'my-search-note-md
+  ;; "m" 'maximize-window ;; use winner-redo/ winner-undo  default C-c <-/->
   ;; "gs" 'magit-status)
   )
 ;; @see http://stackoverflow.com/questions/10569165/how-to-map-jj-to-esc-in-emacs-evil-mode
@@ -370,7 +372,10 @@
 ;; powerline
 (require 'powerline-evil)
 ;; (add-hook 'after-init-hook (lambda ()(powerline-evil-center-color-theme)))
-(add-hook 'after-init-hook (lambda ()(powerline-evil-vim-color-theme)))
+;; (add-hook 'after-init-hook 'powerline-evil-vim-color-theme)
+;; run later
+;; http://www.gnu.org/software/emacs/manual/html_node/elisp/Standard-Hooks.html
+(add-hook 'window-setup-hook 'powerline-evil-vim-color-theme)
 
 ;; indent-guide
 (require 'indent-guide)
@@ -378,8 +383,17 @@
 ;; you can use C-h M-k for special keymap variale
 (require 'help-fns+)
 
+;; had merge to prelude-ui 2015-08-14
+;; (require 'smart-mode-line)
 (require 'smart-mode-line)
-(sml/setup)
+
+(require 'powerline)
+(setq powerline-default-separator 'curve)
+
+(setq powerline-default-separator-dir '(right . left))
+;; (sml/apply-theme 'automatic)
+(setq sml/theme 'powerline)
+ ;; (sml/setup)
 
 ;; (setq browse-url-browser-function 'w3m-browse-url)
 ;; (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
@@ -423,5 +437,9 @@
 
 ;; close menu bar
 (menu-bar-mode -1)
+;; http://endlessparentheses.com/old-packages-and-new-packages-in-24-4.html
+(global-prettify-symbols-mode t)
+
+;; (setq prelude-clean-whitespace-on-save nil)
 (provide 'my-custom)
 ;;; my-custom.el ends here

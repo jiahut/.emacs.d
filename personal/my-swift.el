@@ -1,11 +1,11 @@
-;;; my-markdown.el --- Emacs Prelude: A nice setup for Ruby (and Rails) devs.
+;;; my-swift.el --- Emacs Prelude: A nice setup for Ruby (and Rails) devs.
 ;;
-;; Copyright © 2014 jiahut@gmail.com
+;; Copyright © 2011-2014 jiahut@gmail.com
 ;;
 ;; Author: zhijia,.zhang <jiahut@gmail.com>
 ;; URL: https://github.com/jiahut/.emacs.d
-;; Version: 0.0.1
-;; Keywords: org-mode
+;; Version: 1.0.0
+;; Keywords: convenience
 
 ;; This file is not part of GNU Emacs.
 
@@ -32,23 +32,10 @@
 
 ;;; Code:
 
-(prelude-require-packages '(markdown-mode))
-(require 'markdown-mode)
+(prelude-require-packages '(swift-mode))
 
-(add-hook 'markdown-mode-hook
-          (lambda ()
-            (visual-line-mode t)
-            (writegood-mode t)
-            (flyspell-mode t)))
+;; swift-mode include flycheck
+;; https://github.com/ap4y/swift-mode/commit/91ec7de30a7bae46a49c9f075784a23b0eac886e
 
-(evil-declare-key 'normal markdown-mode-map
-  (kbd "TAB") 'markdown-cycle
-  "gj" 'outline-forward-same-level
-  "gk" 'outline-previous-visible-heading)
-
-(setq markdown-command "pandoc --smart -f markdown_github -t html")
-;; http://jasonm23.github.io/markdown-css-themes/
-(setq markdown-css-paths '("/Users/user/.emacs.d/personal/markdown-css/markdown7.css"))
-
-(provide 'my-markdown)
-;;; my-markdown.el ends here
+(provide 'my-swift)
+;;; my-swift.el ends here

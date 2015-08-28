@@ -135,5 +135,10 @@ If `universal-argument' is called, copy only the dir path."
     (call-interactively 'helm-projectile-ag) ;; invoke align-regexp interactively
     ))
 
+(defun my-search-note-md()
+  (interactive)
+  (helm-do-ag "/Users/user/projects/note.md/" )
+  )
+
 (provide 'my-helper)
 ;;; my-helper.el ends here

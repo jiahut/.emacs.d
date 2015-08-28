@@ -1,4 +1,4 @@
-;;; my-markdown.el --- Emacs Prelude: A nice setup for Ruby (and Rails) devs.
+;;; my-dart.el --- Emacs Prelude: A nice setup for Ruby (and Rails) devs.
 ;;
 ;; Copyright © 2014 jiahut@gmail.com
 ;;
@@ -32,23 +32,10 @@
 
 ;;; Code:
 
-(prelude-require-packages '(markdown-mode))
-(require 'markdown-mode)
+(prelude-require-packages '(dart-mode))
+(require 'dart-mode)
+(setq dart-enable-analysis-server t)
+(add-hook 'dart-mode-hook 'flycheck-mode)
 
-(add-hook 'markdown-mode-hook
-          (lambda ()
-            (visual-line-mode t)
-            (writegood-mode t)
-            (flyspell-mode t)))
-
-(evil-declare-key 'normal markdown-mode-map
-  (kbd "TAB") 'markdown-cycle
-  "gj" 'outline-forward-same-level
-  "gk" 'outline-previous-visible-heading)
-
-(setq markdown-command "pandoc --smart -f markdown_github -t html")
-;; http://jasonm23.github.io/markdown-css-themes/
-(setq markdown-css-paths '("/Users/user/.emacs.d/personal/markdown-css/markdown7.css"))
-
-(provide 'my-markdown)
-;;; my-markdown.el ends here
+(provide 'my-dart)
+;;; my-dart.el ends here
