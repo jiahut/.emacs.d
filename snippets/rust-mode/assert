@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: assert
+# key: a
+# binding: direct-keybinding
+# --
+assert!($1);$0

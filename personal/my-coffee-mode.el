@@ -32,13 +32,13 @@
 
 ;;; Code:
 
-(prelude-require-packages '(coffee-mode js3-mode jade-mode stylus-mode json-mode nodejs-repl))
+(prelude-require-packages '(coffee-mode js2-mode jade-mode stylus-mode json-mode nodejs-repl flycheck))
 (require 'prelude-programming)
 (require 'coffee-mode)
 
 (require 'nodejs-repl)
 
-(require 'js3-mode)
+(require 'js2-mode)
 (defun send-region-to-nodejs-repl(start end)
     "Send region to `nodejs-repl' process."
     (interactive "r")
@@ -51,16 +51,27 @@
 ;; (require 'flymake-jshint)
 ;; (add-hook 'js3-mode-hook 'flymake-jshint-load)
 
-(eval-after-load 'js3-mode
-  '(progn
-     (defun prelude-js-mode-defaults ()
-       )
+(require 'flycheck)
+;; disable jshint since we prefer eslint checking
+(setq-default flycheck-disabled-checkers
+  (append flycheck-disabled-checkers
+    '(javascript-jshint)))
 
-     (setq prelude-js-mode-hook 'prelude-js-mode-defaults)
+;; use eslint with web-mode for jsx files
+(flycheck-add-mode 'javascript-eslint 'web-mode)
 
-     (define-key js3-mode-map (kbd "C-x C-e") 'send-region-to-nodejs-repl)
+;; disable json-jsonlist checking for json files
+(setq-default flycheck-disabled-checkers
+  (append flycheck-disabled-checkers
+    '(json-jsonlist)))
 
-     (add-hook 'js-mode-hook (lambda () (run-hooks 'prelude-js-mode-hook)))))
+;; (eval-after-load 'js2-mode
+;;   '(progn
+;;      (defun prelude-js-mode-defaults ()
+;;        )
+;;      (setq prelude-js-mode-hook 'prelude-js-mode-defaults)
+;;      (define-key js2-mode-map (kbd "C-x C-e") 'send-region-to-nodejs-repl)
+;;      (add-hook 'js2-mode-hook (lambda () (run-hooks 'prelude-js-mode-hook)))))
 
 ;; (require 'flymake-coffee)
 ;; (add-hook 'coffee-mode-hook 'flymake-coffee-load)
@@ -88,14 +99,14 @@
       (progn
         (message (buffer-name))
         (define-key evil-normal-state-map "q" nil)
-        (define-key js3-mode-map (kbd "q") 'delete-window)
+        (define-key js2-mode-map (kbd "q") 'delete-window)
         ))
   )
 
-(remove-hook 'prelude-coffee-mode-hook 'prelude-coffee-mode-defaults)
+;; (remove-hook 'prelude-coffee-mode-hook 'prelude-coffee-mode-defaults)
 ;;; (add-hook 'prelude-coffee-mode-hook 'prelude-coffee-mode-defaults)
 
-(add-hook 'js3-mode-hook 'add-q-key-for-quit-compiled)
+(add-hook 'js2-mode-hook 'add-q-key-for-quit-compiled)
 ;;; (remove-hook 'js3-mode-hook 'add-q-key-for-quit-compiled)
 
 (provide 'my-coffee-mode)

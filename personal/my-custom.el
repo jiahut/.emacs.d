@@ -18,7 +18,7 @@
                                  helm-company help-fns+ evil-commentary helm-dash
                                  dirtree ag helm-ag helm-swoop impatient-mode powerline
                                  smooth-scrolling indent-guide emmet-mode yasnippet evil-leader evil-exchange
-                                 evil-matchit dash-at-point grandshell-theme
+                                 evil-matchit dash-at-point grandshell-theme workgroups2
                                  sr-speedbar projectile-speedbar evil-snipe)) ;; flymake-ruby
 
 (add-hook 'c-mode-common-hook 'hs-minor-mode)
@@ -293,7 +293,7 @@
   "m" 'bookmark-set
   "l" 'helm-bookmarks
   "d" 'bookmark-delete
-  "w" 'save-buffer
+  "w" 'wg-switch-to-workgroup
   "s" 'kid-star-dict
   "c" 'my-create-scratch-buffer
   "e" 'evil-execute-in-emacs-state
@@ -393,7 +393,7 @@
 (setq powerline-default-separator-dir '(right . left))
 ;; (sml/apply-theme 'automatic)
 (setq sml/theme 'powerline)
- ;; (sml/setup)
+;; (sml/setup)
 
 ;; (setq browse-url-browser-function 'w3m-browse-url)
 ;; (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
@@ -407,13 +407,18 @@
 ;; https://github.com/redguardtoo/evil-nerd-commenter/issues/47
 ;; (require 'evil-nerd-commenter)
 (require 'evil-commentary)
-(evil-commentary-default-setup)
+(evil-commentary-mode 1)
 
 (require 'helm-dash)
 (setq helm-dash-browser-func 'eww-browse-url)
 ;; (setq helm-dash-browser-func 'w3m-browse-url)
 
-;;; http://flycheck.readthedocs.org/en/0.17/flycheck-versus-flymake.html
+;;; http://nflycheck.readthedocs.org/en/0.17/flycheck-versus-flymake.html
+(add-hook 'after-init-hook #'global-flycheck-mode)
+;; use apsell as ispell backend
+(setq-default ispell-program-name "aspell")
+;; use American English as ispell default dictionary
+(ispell-change-dictionary "american" t)
 
 (require 'evil-exchange)
 (evil-exchange-install)
@@ -440,6 +445,25 @@
 ;; http://endlessparentheses.com/old-packages-and-new-packages-in-24-4.html
 (global-prettify-symbols-mode t)
 
+;; ;; http://workgroups2.readthedocs.org/en/latest/guide/usage.html
+;; (require 'workgroups2)
+;; ;; Change prefix key (before activating WG)
+;; (setq wg-prefix-key (kbd "C-c z"))
+;; ;; Change workgroups session file
+;; (setq wg-session-file "~/.emacs.d/.emacs_workgroups")
+;; (setq wg-mode-line-display-on t)
+;; (setq wg-mode-line-decor-left-brace "["
+;;       wg-mode-line-decor-right-brace "]"  ; how to surround it
+;;       wg-mode-line-decor-divider ":")
+;; (workgroups-mode 1)
+
 ;; (setq prelude-clean-whitespace-on-save nil)
+
+(add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
+(add-hook 'web-mode-hook
+          (lambda () ((setq web-mode-markup-indent-offset 2)
+                  (setq web-mode-css-indent-offset 2)
+                  (setq web-mode-code-indent-offset 2))))
+
 (provide 'my-custom)
 ;;; my-custom.el ends here

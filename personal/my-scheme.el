@@ -41,9 +41,18 @@
 ;; (add-to-list 'load-path "~/.emacs.d/personal/chicken")
 ;; (require 'geiser-chicken)
 
-(setq geiser-active-implementations '(chicken guile))
+(setq geiser-active-implementations '(chicken guile racket))
 (setq geiser-mode-smart-tab-p t)
 (geiser-company--setup 1)
+
+;; fix the chicken
+;; https://github.com/jaor/geiser/issues/68
+;; (use utils)
+;; (compile-file "/Users/user/.emacs.d/elpa/geiser-20150902.1921/scheme/chicken/geiser/emacs.scm")
+;; (import geiser)
+(setq geiser-default-implementation 'chicken)
+
+
 ;; (geiser-smart-tab-mode 1)
 
 ;; (require 'chicken)

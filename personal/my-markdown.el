@@ -38,9 +38,17 @@
 (add-hook 'markdown-mode-hook
           (lambda ()
             (visual-line-mode t)
+            (writegood-duplicates-turn-off)
             (writegood-mode t)
             (flyspell-mode t)))
 
+;; (remove-hook 'writegood-mode-hook (lambda()(
+;;             (writegood-duplicates-turn-off)
+;;                                      )))
+
+;; (add-hook 'writegood-mode-hook (lambda()(
+;;             (writegood-duplicates-turn-off)
+;;                                      )))
 (evil-declare-key 'normal markdown-mode-map
   (kbd "TAB") 'markdown-cycle
   "gj" 'outline-forward-same-level
