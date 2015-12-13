@@ -86,6 +86,7 @@
   "Keymap for Coffee major mode")
 
 (define-key coffee-mode-map (kbd "C-x C-e") 'coffee-compile-buffer)
+(define-key js2-mode-map (kbd "C-x C-e") 'send-region-to-nodejs-repl)
 
 (add-hook 'coffee-mode-hook
           (function (lambda ()
