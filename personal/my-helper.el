@@ -2,7 +2,6 @@
 ;;; Commentary:
 ;;; code:
 
-
 (defvar current-date-time-format "%A, %B %e, %Y"
   "Format of date to insert with `insert-current-date-time' func
 See help of `format-time-string' for possible replacements")
