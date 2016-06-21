@@ -15,7 +15,7 @@
 ;; (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 
 (prelude-require-packages '(evil evil-surround tramp thrift powerline-evil
-                                 helm-company help-fns+ evil-commentary helm-dash
+                                 helm-company help-fns+ evil-commentary helm-dash ctags-update
                                  dirtree ag helm-ag helm-swoop impatient-mode powerline
                                  smooth-scrolling indent-guide emmet-mode yasnippet evil-leader evil-exchange
                                  evil-matchit dash-at-point grandshell-theme workgroups2
@@ -458,6 +458,16 @@
 ;; (workgroups-mode 1)
 
 ;; (setq prelude-clean-whitespace-on-save nil)
+
+
+;; etags
+
+(require 'ctags-update)
+(autoload 'turn-on-ctags-auto-update-mode "ctags-update" "turn on 'ctags-auto-update-mode'." t)
+(add-hook 'c-mode-common-hook  'turn-on-ctags-auto-update-mode)
+(add-hook 'java-mode-common-hook  'turn-on-ctags-auto-update-mode)
+(autoload 'ctags-update "ctags-update" "update TAGS using ctags" t)
+
 
 (add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
 (add-hook 'web-mode-hook
