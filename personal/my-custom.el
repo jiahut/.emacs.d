@@ -18,7 +18,7 @@
                                  helm-company help-fns+ evil-commentary helm-dash ctags-update
                                  dirtree ag helm-ag helm-swoop impatient-mode powerline
                                  smooth-scrolling indent-guide emmet-mode yasnippet evil-leader evil-exchange
-                                 evil-matchit dash-at-point grandshell-theme workgroups2
+                                 evil-matchit dash-at-point grandshell-theme workgroups2 fcitx
                                  sr-speedbar projectile-speedbar evil-snipe)) ;; flymake-ruby
 
 (add-hook 'c-mode-common-hook 'hs-minor-mode)
@@ -474,6 +474,9 @@
           (lambda () ((setq web-mode-markup-indent-offset 2)
                   (setq web-mode-css-indent-offset 2)
                   (setq web-mode-code-indent-offset 2))))
+
+(require 'fcitx)
+(fcitx-default-setup)
 
 (provide 'my-custom)
 ;;; my-custom.el ends here
