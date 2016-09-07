@@ -58,7 +58,7 @@
     (progn
       (setq pyenv-executable "/usr/local/bin/pyenv")
       (global-pyenv-mode)
-      (pyenv-use "py27")
+      (pyenv-use "py3")
       ))
 
 
