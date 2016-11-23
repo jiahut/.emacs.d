@@ -302,6 +302,7 @@
   "j" 'jump-to-register
   "y" 'prelude-copy-file-name-to-clipboard
   "n" 'my-search-note-md
+  "h" 'helm-swoop
   ;; "m" 'maximize-window ;; use winner-redo/ winner-undo  default C-c <-/->
   ;; "gs" 'magit-status)
   )

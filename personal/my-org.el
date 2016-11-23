@@ -42,7 +42,7 @@
   ",*" 'org-ctrl-c-star
   ",-" 'org-ctrl-c-minus
   "gk" 'outline-backward-same-level
-  "gk" 'outline-previous-visible-heading)
+  "gK" 'outline-previous-visible-heading)
 
 (add-hook 'org-mode-hook (lambda () (flyspell-mode -1)))
 
