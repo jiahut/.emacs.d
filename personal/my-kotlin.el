@@ -1,11 +1,11 @@
-;;; my-theme.el --- Emacs Prelude: A nice setup for Ruby (and Rails) devs.
+;;; my-kotlin.el --- Emacs Prelude: A nice setup for Ruby (and Rails) devs.
 ;;
-;; Copyright © 2011-2014 jiahut@gmail.com
+;; Copyright © 2014 jiahut@gmail.com
 ;;
 ;; Author: zhijia,.zhang <jiahut@gmail.com>
 ;; URL: https://github.com/jiahut/.emacs.d
-;; Version: 1.0.0
-;; Keywords: convenience
+;; Version: 0.0.1
+;; Keywords: go
 
 ;; This file is not part of GNU Emacs.
 
@@ -31,11 +31,10 @@
 ;; Boston, MA 02110-1301, USA.
 
 ;;; Code:
-;; (prelude-require-packages '(monokai-theme solarized-theme))
 
-;; (require 'monokai-theme)
-;; (enable-theme 'monokai)
-(setq prelude-theme 'zenburn)
+(prelude-require-packages '(kotlin-mode))
 
-(provide 'my-theme)
-;;; my-theme.el ends here
+(require 'kotlin-mode)
+
+(provide 'my-kotlin)
+;;; my-kotlin.el ends here

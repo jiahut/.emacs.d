@@ -19,7 +19,50 @@
                                  dirtree ag helm-ag helm-swoop impatient-mode powerline
                                  smooth-scrolling indent-guide emmet-mode yasnippet evil-leader evil-exchange
                                  evil-matchit dash-at-point grandshell-theme workgroups2 fcitx
-                                 sr-speedbar projectile-speedbar evil-snipe)) ;; flymake-ruby
+                                 neotree evil-snipe)) ;; flymake-ruby sr-speedbar projectile-speedbar
+
+;; disable speedbar open default
+;; (setq projectile-speedbar-projectile-speedbar-enable nil)
+
+(setq neo-smart-open t)
+(setq projectile-switch-project-action 'neotree-projectile-action)
+
+(defun neotree-projectile-dir-update()
+  "Open NeoTree using the git root."
+  (interactive)
+  (let ((project-dir (projectile-project-root))
+        (file-name (buffer-file-name)))
+    (if (not (neo-global--window-exists-p))
+             (neotree-show))
+        (if project-dir
+            (if (neo-global--window-exists-p)
+                (progn
+                  (neotree-dir project-dir)
+                  (neotree-find file-name)))
+          (message "Could not find git project root."))))
+
+(defun neotree-projectile-dir ()
+  "Open NeoTree using the git root."
+  (interactive)
+  (let ((project-dir (projectile-project-root))
+        (file-name (buffer-file-name)))
+    (neotree-toggle)
+    (if project-dir
+        (if (neo-global--window-exists-p)
+            (progn
+              (neotree-dir project-dir)
+              (neotree-find file-name)))
+      (message "Could not find git project root."))))
+;; (global-set-key [f8] 'neotree-toggle)
+(global-set-key [f8] 'neotree-projectile-dir)
+(global-set-key [f5] 'neotree-projectile-dir-update)
+(add-hook 'neotree-mode-hook
+          (lambda ()
+            (evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
+            (evil-define-key 'normal neotree-mode-map (kbd "o") 'neotree-enter)
+            (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
+            (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)))
+
 
 (add-hook 'c-mode-common-hook 'hs-minor-mode)
 (add-hook 'ruby-mode-hook 'hs-minor-mode)
@@ -251,6 +294,7 @@
 ;; default set-fill-column
 ;; you can type `\` then `C-x f` to set-fill-column in `emacs` status
 (define-key prelude-mode-map (kbd "\C-x f") 'helm-recentf)
+(define-key prelude-mode-map (kbd "\C-w z") 'winner-undo)
 (evil-declare-key 'emacs prelude-mode-map (kbd "\C-x f") 'set-fill-column)
 
 (define-key evil-insert-state-map "\C-n" 'evil-next-line)
@@ -428,8 +472,8 @@
 (require 'ox-freemind)
 
 ;; speedbar
-(require 'projectile-speedbar)
-(global-set-key (kbd "<f2>") 'projectile-speedbar-open-current-buffer-in-tree)
+;; (require 'projectile-speedbar)
+;; (global-set-key (kbd "<f2>") 'projectile-speedbar-open-current-buffer-in-tree)
 
 ;; vim-snipe
 (require 'evil-snipe)
@@ -478,6 +522,8 @@
 
 (require 'fcitx)
 (fcitx-default-setup)
+
+(desktop-save-mode 1)
 
 (provide 'my-custom)
 ;;; my-custom.el ends here
