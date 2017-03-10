@@ -1,6 +1,6 @@
 ;;; prelude-helm-everywhere.el --- Enable Helm everywhere
 ;;
-;; Copyright © 2014-2016 Tu, Do Hoang
+;; Copyright © 2014-2017 Tu, Do Hoang
 ;;
 ;; Author: Tu, Do Hoang (tuhdo1710@gmail.com)
 ;; URL: https://github.com/bbatsov/prelude
@@ -49,6 +49,8 @@
 (define-key prelude-mode-map (kbd "C-c f") 'helm-recentf)
 
 (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
+
+(define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
 
 ;; shell history.
 (define-key shell-mode-map (kbd "C-c C-l") 'helm-comint-input-ring)

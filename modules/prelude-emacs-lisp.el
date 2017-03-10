@@ -1,6 +1,6 @@
 ;;; prelude-emacs-lisp.el --- Emacs Prelude: Nice config for Elisp programming.
 ;;
-;; Copyright © 2011-2016 Bozhidar Batsov
+;; Copyright © 2011-2017 Bozhidar Batsov
 ;;
 ;; Author: Bozhidar Batsov <bozhidar@batsov.com>
 ;; URL: https://github.com/bbatsov/prelude
@@ -34,6 +34,7 @@
 ;;; Code:
 
 (require 'prelude-lisp)
+(require 'crux)
 
 (prelude-require-packages '(elisp-slime-nav rainbow-mode))
 
@@ -52,7 +53,7 @@
   "Switch to default `ielm' buffer.
 Start `ielm' if it's not already running."
   (interactive)
-  (prelude-start-or-switch-to 'ielm "*ielm*"))
+  (crux-start-or-switch-to 'ielm "*ielm*"))
 
 (define-key emacs-lisp-mode-map (kbd "C-c C-z") 'prelude-visit-ielm)
 (define-key emacs-lisp-mode-map (kbd "C-c C-c") 'eval-defun)
