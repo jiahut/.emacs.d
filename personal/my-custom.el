@@ -524,6 +524,12 @@
 (fcitx-default-setup)
 
 (desktop-save-mode 1)
+(if (file-exists-p
+     (concat default-directory ".emacs.desktop"))
+    (desktop-read default-directory))
 
+(add-hook 'kill-emacs-hook
+          `(lambda ()
+             (desktop-save default-directory t)))
 (provide 'my-custom)
 ;;; my-custom.el ends here
