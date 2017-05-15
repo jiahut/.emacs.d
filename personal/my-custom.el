@@ -323,6 +323,11 @@
 (evil-declare-key 'emacs magit-status-mode-map (kbd "\C-d") 'evil-scroll-down)
 (evil-declare-key 'emacs magit-status-mode-map (kbd "\C-u") 'evil-scroll-up)
 
+(evil-declare-key 'emacs magit-status-mode-map (kbd "\C-w h") 'evil-window-left)
+(evil-declare-key 'emacs magit-status-mode-map (kbd "\C-w l") 'evil-window-right)
+(evil-declare-key 'emacs magit-status-mode-map (kbd "\C-w k") 'evil-window-up)
+(evil-declare-key 'emacs magit-status-mode-map (kbd "\C-w j") 'evil-window-down)
+
 ;; unset key \ for 'evil-execute-in-emacs-state
 (define-key evil-motion-state-map "\\" nil)
 ;; (define-key evil-motion-state-map "\\\\" 'evil-execute-in-emacs-state)
